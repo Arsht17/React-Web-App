@@ -6,7 +6,7 @@
   justify-content: flex-start;
   align-items: center;
   border: var(--head-border);
-  gap: 16px;
+  /* gap: 16px; */
   justify-content: space-between;
   padding: 16px;
 }
@@ -28,7 +28,7 @@
 }
 
 .menuItems {
-  background-color: white;
+  background-color: var(--menuItems-bg);
   padding: 16px;
   border-radius: 8px;
   display: flex;
@@ -45,4 +45,6 @@
   outline: none;
   box-shadow: none;
   cursor: pointer;
+  position: relative;
+  right: 32px;
 }
