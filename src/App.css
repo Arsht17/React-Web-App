@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+/* html element*/
+:root {
+  --main-bg: #F4F7FD;
+  --side-bg: white;
+  --head-bg: white;
+  --create-bg: white;
+  --editborad-bg: #fefefe;
+  --head-border: 1px solid #f4f7fd;
+  --side-border: 1px solid #f4f7fd;
+  --kanban-color: rgb(0, 0, 0);
+}
+:root.dark {
+  --main-bg: #20212c;
+  --side-bg: hsl(235, 12%, 19%);
+  --head-bg: hsl(235, 12%, 19%);
+  --create-bg:hsl(235, 12%, 19%);
+  --editborad-bg: hsl(235, 12%, 19%);
+  --head-color: white;
+  --main-color: white;
+  --kanban-color: white;
+  --editborad-color: white;
+  --head-border: 1px solid #20212c;
+  --side-border: 1px solid #20212c;
+}
+body {
+  margin: 0;
+}
+
+.app {
+  height: 100vh;
+  display: flex;
+}
+
+.left {
+  width: 300px;
+}
+.right {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+a {
+text-decoration: none;
+color:inherit ;
+}
+
+/* justify-content = horizontal (column), vertical (row)
+/* align-items= horizontal (row), vertical (column)

@@ -1,0 +1,20 @@
+.Main {
+  background-color: var(--main-bg);
+  flex-grow: 1;
+  color: var(--main-color);
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+}
+
+.empty-text {
+  color: #828fa3;
+  font-size: large;
+  line-height: 18px Line;
+  font-weight: bold;
+}

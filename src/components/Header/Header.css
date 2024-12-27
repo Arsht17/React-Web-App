@@ -1,0 +1,48 @@
+.Header {
+  background-color: var(--head-bg);
+  height: 96px;
+  color: var(--head-color);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border: var(--head-border);
+  gap: 16px;
+  justify-content: space-between;
+  padding: 16px;
+}
+.title {
+  font-size: x-large;
+  font-weight: bold;
+  position: relative;
+  left: 24px;
+}
+.add {
+  margin-left: auto;
+  position: relative;
+  right: 61px;
+}
+.Header .actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menuItems {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.menuItem {
+  gap: 4px;
+  cursor: pointer;
+}
+.dots {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
