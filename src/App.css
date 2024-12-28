@@ -39,9 +39,9 @@ body {
   display: flex;
 }
 
-.left {
+/* .left {
   width: 300px;
-}
+} */
 .right {
   flex-grow: 1;
   display: flex;

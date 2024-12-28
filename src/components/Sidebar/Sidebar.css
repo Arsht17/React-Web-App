@@ -2,11 +2,16 @@
   display: flex;
   flex-direction: column;
   color: #828fa3;
-  width: 100%;
+  width: 0;
   height: 100%;
   background-color: var(--side-bg);
   border: var(--side-border);
   position: relative;
+  transition: 1s all;
+  overflow: hidden;
+}
+.Sidebar.open {
+  width: 300px;
 }
 .kanban {
   font-size: xx-large;
@@ -121,27 +126,25 @@ input:checked + .slider:before {
 .Hide-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  gap: 15px;
   position: absolute;
-  left: 24px;
+  left: 0px;
   bottom: 32px;
-  width: 276px;
-  height: 48px;
-  font-size: medium;
-  font-weight: bold;
-  cursor: pointer;
 }
 
-.Hide-container-closed {
+.Hide-closed {
   display: flex;
   align-items: center;
-  position: absolute;
-  left: 24px;
+  justify-content: center;
+  position: fixed;
+  left: 0px;
   bottom: 32px;
   width: 56px;
   height: 48px;
   cursor: pointer;
-  color: #635fc7;
+  background-color: #635fc7;
   border-radius: 0px 100px 100px 0px;
+  border-color: transparent;
+}
+.Hide-closed:hover {
+  background-color: #a8a4ff;
 }
