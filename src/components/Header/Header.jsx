@@ -7,7 +7,7 @@ import { boardsSlice } from "../../store";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/16/solid";
 
-export function Header({ openEditBoardModal }) {
+export function Header({ openEditBoardModal, openAddNewTask }) {
   const [location, setLocation] = useLocation();
   const params = useParams();
   const dispatch = useDispatch();
@@ -24,17 +24,19 @@ export function Header({ openEditBoardModal }) {
     dispatch(boardsSlice.actions.deleteBoard(selectedBoard.id)); //update client
     setLocation("/"); // update
   }
-
+  const isAddColumnDisabled = !selectedBoard;
   return (
     <div className="Header">
       <p className="title"> Platform Launch</p>
       <div className="add">
         <Button
+          disabled={isAddColumnDisabled}
           color="primary"
           size="lg"
           shadow="null"
           width="scope_2"
-          opacity="off"
+          opacity="0"
+          onClick={openAddNewTask}
         >
           + Add New Task
         </Button>

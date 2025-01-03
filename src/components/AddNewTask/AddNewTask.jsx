@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./AddNewBoard.css";
+import "./AddNewTask.css";
 
-export function AddNewBoard() {
+export function AddNewTask() {
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -19,9 +19,8 @@ export function AddNewBoard() {
 
   console.log("render AddNewTask");
   return (
-    <div className={`AddNewBoard`}>
+    <div className={`AddNewTask`}>
       <form
-        on
         onSubmit={(event) => {
           event.preventDefault(); //prevent submit form
           createTask();

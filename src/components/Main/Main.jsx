@@ -39,7 +39,7 @@ export function Main({ openEditBoardModal }) {
               disabled={isAddColumnDisabled}
               color="primary"
               size="lg"
-              opacity="0"
+              opacity=""
               onClick={() => {
                 openEditBoardModal(selectedBoard);
               }}

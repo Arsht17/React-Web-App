@@ -8,6 +8,7 @@ import { useAppContext } from "./contexts/AppContext";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { boardsSlice, themeSlice } from "./store";
+import { AddNewTask } from "./components/AddNewTask/AddNewTask";
 
 async function getBoards() {
   const res = await fetch("http://localhost:4000/api/boards");
@@ -26,6 +27,7 @@ function App() {
   const [boardToEdit, setBoardToEdit] = useState(null);
   console.log("boardToEdit", boardToEdit);
   const dispatch = useDispatch();
+  const [isAddNewTaskOpen, setIsAddNewTaskOpen] = useState(false);
 
   function openModal(board) {
     setIsBoardModalOpen(true);
@@ -35,6 +37,14 @@ function App() {
   function closeModal() {
     setIsBoardModalOpen(false);
     setBoardToEdit(null);
+  }
+
+  function openAddNewTask() {
+    setIsAddNewTaskOpen(true);
+  }
+
+  function closeAddNewTask() {
+    setIsAddNewTaskOpen(false);
   }
 
   useEffect(() => {
@@ -66,12 +76,16 @@ function App() {
       />
       {/* </div> */}
       <div className="right">
-        <Header openEditBoardModal={openModal} />
+        <Header
+          openEditBoardModal={openModal}
+          openAddNewTask={openAddNewTask}
+        />
         <Main openEditBoardModal={openModal} />
       </div>
       {isBoardModalOpen && (
         <BoardFormModal close={closeModal} boardToEdit={boardToEdit} />
       )}
+      {isAddNewTaskOpen && <AddNewTask onClose={closeAddNewTask} />}
     </div>
   );
 }
