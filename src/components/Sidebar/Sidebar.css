@@ -131,7 +131,7 @@ input:checked + .slider:before {
   bottom: 32px;
 }
 
-.Hide-closed {
+.open-sidebar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -144,7 +144,12 @@ input:checked + .slider:before {
   background-color: #635fc7;
   border-radius: 0px 100px 100px 0px;
   border-color: transparent;
+  transition-delay: 1s;
+  overflow: hidden;
 }
-.Hide-closed:hover {
+.open-sidebar.hide {
+  display: none;
+}
+.open-sidebar:hover {
   background-color: #a8a4ff;
 }
