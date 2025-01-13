@@ -7,12 +7,15 @@
   background-color: var(--side-bg);
   border: var(--side-border);
   position: relative;
-  transition: width 1s ease;
+  transition: width 0.5s ease, opacity 0.3s ease;
+  opacity: 0;
   overflow: hidden;
 }
 .Sidebar.open {
   width: 300px;
+  opacity: 1;
 }
+
 .kanban {
   font-size: xx-large;
   font-weight: bold;
@@ -47,6 +50,9 @@
   margin-left: -32px;
   padding-left: 48px;
   gap: 16px;
+}
+.board:hover {
+  background-color: var(--board-hover);
 }
 .board a {
   width: 100%;

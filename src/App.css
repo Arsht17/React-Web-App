@@ -15,6 +15,7 @@
   --switch-container-color:#f4f7fd;
   --menuItems-bg: white;
   --side-hide-hover:#a8a4ff;
+  --board-hover:#a8a4ff;
 }
 :root.dark {
   --main-bg: #20212c;
@@ -31,6 +32,7 @@
   --switch-container-color:#20212C;
   --menuItems-bg: #20212C;
   --side-hide-hover:white;
+  --board-hover:white;
 }
 body {
   margin: 0;
