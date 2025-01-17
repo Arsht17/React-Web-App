@@ -85,7 +85,7 @@ function App() {
       {isBoardModalOpen && (
         <BoardFormModal close={closeModal} boardToEdit={boardToEdit} />
       )}
-      {isAddNewTaskOpen && <AddNewTask onClose={closeAddNewTask} />}
+      {isAddNewTaskOpen && <AddNewTask close={closeAddNewTask} />}
     </div>
   );
 }

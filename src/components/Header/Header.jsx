@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { boardsSlice } from "../../store";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/16/solid";
-imported;
+
 export function Header({ openEditBoardModal, openAddNewTask }) {
   const [location, setLocation] = useLocation();
   const params = useParams();

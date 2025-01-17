@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./AddNewTask.css";
 
-export function AddNewTask() {
+export function AddNewTask({ close }) {
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -13,61 +13,72 @@ export function AddNewTask() {
   const hasQ = !!form.description.includes("?");
 
   console.log("form", form);
+
   function createTask() {
     console.log("create task");
+    close?.(); // Close the modal after task creation, if the close function is provided
   }
 
-  console.log("render AddNewTask");
   return (
-    <div className={`AddNewTask`}>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault(); //prevent submit form
-          createTask();
+    <div onClick={() => close?.()} className="AddNewTask">
+      <div
+        onClick={(e) => {
+          e.stopPropagation(); // Prevent click event from propagating to the parent div
         }}
+        className="AddNewTask-content"
       >
-        <div className="field">
-          <label htmlFor="">Title</label>
-          <input
-            value={form.title}
-            onChange={(event) => {
-              setForm({
-                ...form, //copy current form
-                title: event.target.value, //overide
-              });
-            }}
-            type="text"
-            placeholder="title"
-            name=""
-            id="title"
-          />
-        </div>
-        <div className="field">
-          <label
-            style={{
-              background: hasQ ? "red" : undefined,
-            }}
-            htmlFor=""
-          >
-            Description
-          </label>
-          <input
-            onChange={(event) => {
-              setForm({
-                ...form, //copy current form
-                description: event.target.value, //overide
-              });
-            }}
-            type="text"
-            placeholder="Description"
-            name=""
-            id="Description"
-          />
-        </div>
-        <button disabled={!isValidTitle || !isValidDescription}>
-          create task
-        </button>
-      </form>
+        <span className="AddNewTask-close" onClick={close}>
+          &times;
+        </span>
+        <h2 className="AddNewTask-title">Add New Task</h2>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault(); // Prevent form submission
+            createTask();
+          }}
+        >
+          <div className="title-field">
+            <label htmlFor="title">Title</label>
+            <input
+              value={form.title}
+              onChange={(event) => {
+                setForm({
+                  ...form, // Copy current form
+                  title: event.target.value, // Override
+                });
+              }}
+              type="text"
+              placeholder="e.g. Take coffee break"
+              id="title"
+            />
+          </div>
+          <div className="description-field">
+            <label
+              style={{
+                background: hasQ ? "red" : undefined,
+              }}
+              htmlFor="description"
+            >
+              Description
+            </label>
+            <input
+              value={form.description}
+              onChange={(event) => {
+                setForm({
+                  ...form, // Copy current form
+                  description: event.target.value, // Override
+                });
+              }}
+              type="text"
+              placeholder="e.g. It’s always good to take a break."
+              id="description"
+            />
+          </div>
+          <button disabled={!isValidTitle || !isValidDescription}>
+            create task
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

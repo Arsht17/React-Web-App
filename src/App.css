@@ -16,6 +16,7 @@
   --menuItems-bg: white;
   --side-hide-hover:#a8a4ff;
   --board-hover:#a8a4ff;
+  --field-addnewtask-color:white;
 }
 :root.dark {
   --main-bg: #20212c;
@@ -33,6 +34,7 @@
   --menuItems-bg: #20212C;
   --side-hide-hover:white;
   --board-hover:white;
+  --field-addnewtask-color:black;
 }
 body {
   margin: 0;
