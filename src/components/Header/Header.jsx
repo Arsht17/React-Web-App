@@ -1,12 +1,13 @@
 import Button from "../Button/Button";
-import "./Header.css";
+// import "./Header.css";
+import "./Header.scss";
 import { useLocation, useParams } from "wouter";
 import { Api } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { boardsSlice } from "../../store";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/16/solid";
-
+imported;
 export function Header({ openEditBoardModal, openAddNewTask }) {
   const [location, setLocation] = useLocation();
   const params = useParams();

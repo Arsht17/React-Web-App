@@ -28,9 +28,9 @@
 }
 
 .menuItems {
-  position: absolute;
-  right: 24px;
-  top: 90px;
+  position: absolute !important;
+  right: 24px !important;
+  top: 90px !important;
   background-color: var(--menuItems-bg);
   padding: 16px;
   border-radius: 8px;
