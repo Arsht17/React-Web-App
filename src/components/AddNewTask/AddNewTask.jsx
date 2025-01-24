@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AddNewTask.css";
+import "./AddNewTask.scss";
 
 export function AddNewTask({ close }) {
   const [form, setForm] = useState({
@@ -61,7 +61,7 @@ export function AddNewTask({ close }) {
             >
               Description
             </label>
-            <input
+            <textarea
               value={form.description}
               onChange={(event) => {
                 setForm({

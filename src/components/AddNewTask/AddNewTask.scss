@@ -52,6 +52,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: var(--field-addnewtask-color);
 }
 
 .title-field label {
@@ -64,20 +65,28 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 16px;
-}
 
-.description-field input {
-  width: 416px;
-  height: 112px;
-  padding: 8px;
-  font-size: 18px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: none; /* Prevents resizing if applicable */
-}
+  textarea {
+    width: 416px;
+    height: 112px;
+    padding: 8px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--field-addnewtask-color);
+    text-align: left;
+    resize: none;
+    line-height: 1.5;
 
-.description-field label {
-  font-size: 14px;
-  font-weight: bold;
+    &::placeholder {
+      text-align: left;
+      font-size: 18px;
+    }
+  }
+
+  label {
+    font-size: 14px;
+    font-weight: bold;
+  }
 }
