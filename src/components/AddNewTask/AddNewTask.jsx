@@ -1,5 +1,8 @@
 import { useState } from "react";
 import "./AddNewTask.scss";
+import Button from "../Button/Button";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 export function AddNewTask({ close }) {
   const [form, setForm] = useState({
@@ -74,9 +77,39 @@ export function AddNewTask({ close }) {
               id="description"
             />
           </div>
-          <button disabled={!isValidTitle || !isValidDescription}>
-            create task
-          </button>
+          <div className="status">
+            <label htmlFor="status">Current Status</label>
+            <div className="dropDown">
+              <Menu>
+                <MenuButton className="Chevron-btn">
+                  <ChevronDownIcon className="Chevron-icon" />
+                </MenuButton>
+                <MenuItems transition anchor="bottom end" className="Items">
+                  <MenuItem className="Item">
+                    <span>Todo</span>
+                  </MenuItem>
+                  <MenuItem className="Item">
+                    <span>Doing</span>
+                  </MenuItem>
+                  <MenuItem className="Item">
+                    <span>Done</span>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
+          </div>
+          <div className="createTask-btn">
+            <Button
+              disabled={!isValidTitle || !isValidDescription}
+              color="primary"
+              size="sm"
+              width="scope_3"
+              shadow="null"
+              opacity="null"
+            >
+              create task
+            </Button>
+          </div>
         </form>
       </div>
     </div>

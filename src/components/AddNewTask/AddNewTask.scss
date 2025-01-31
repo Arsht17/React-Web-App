@@ -10,6 +10,7 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 .AddNewTask-content {
+  position: relative;
   background-color: var(--editborad-bg);
   color: var(--editborad-color);
   margin: 15% auto;
@@ -34,7 +35,7 @@
 
 .AddNewTask-title {
   color: var(--editborad-color);
-  font-size: 18px;
+  font-size: large;
   font-weight: bold;
 }
 .title-field {
@@ -53,6 +54,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   background-color: var(--field-addnewtask-color);
+  color: var(--input-color);
 }
 
 .title-field label {
@@ -75,6 +77,7 @@
     border-radius: 4px;
     box-sizing: border-box;
     background-color: var(--field-addnewtask-color);
+    color: var(--input-color);
     text-align: left;
     resize: none;
     line-height: 1.5;
@@ -89,4 +92,58 @@
     font-size: 14px;
     font-weight: bold;
   }
+}
+.status {
+  position: absolute;
+  bottom: 96px;
+}
+.status label {
+  font-size: 14px;
+  font-weight: bold;
+}
+.Items {
+  position: absolute !important;
+  left: 714px !important;
+  top: 870px !important;
+  background-color: var(--menuItems-bg);
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 416px;
+  z-index: 10;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: auto;
+  overflow: hidden;
+}
+.Item {
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #828fa3;
+}
+.Chevron-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+}
+.Chevron-btn {
+  width: 416px;
+  height: 40px;
+  background: none;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+.dropDown {
+  position: relative;
+}
+.createTask-btn {
+  position: absolute;
+  bottom: 32px;
 }

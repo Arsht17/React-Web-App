@@ -17,6 +17,7 @@
   --side-hide-hover:#a8a4ff;
   --board-hover:#a8a4ff;
   --field-addnewtask-color:white;
+  --input-color:black;
 }
 :root.dark {
   --main-bg: #20212c;
@@ -35,6 +36,7 @@
   --side-hide-hover:white;
   --board-hover:white;
   --field-addnewtask-color:#2B2C37;
+  --input-color:white;
 }
 body {
   margin: 0;

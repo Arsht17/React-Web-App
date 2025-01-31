@@ -117,7 +117,7 @@ export function BoardFormModal({ close, boardToEdit }) {
             );
           })}
         </div>
-        <div className="columns">
+        <div className="column-btn">
           <Button
             color="secondary"
             size="sm"
@@ -129,7 +129,7 @@ export function BoardFormModal({ close, boardToEdit }) {
             + Add New Column
           </Button>
         </div>
-        <div className="">
+        <div className="save-btn">
           <Button
             color="primary"
             size="sm"
