@@ -8,12 +8,15 @@ export function AddNewTask({ close }) {
   const [form, setForm] = useState({
     title: "",
     description: "",
+    status: "Todo", // Default status
+    subtasks: [], // Ensure subtasks is initialized
   });
 
   // Derived state for validation
   const isValidTitle = !!form.title.length;
   const isValidDescription = !!form.description.length;
-  const hasQ = !!form.description.includes("?");
+  const hasQInDescription = form.description.includes("?");
+  const hasQInTitle = form.title.includes("?");
 
   console.log("form", form);
 
@@ -21,9 +24,31 @@ export function AddNewTask({ close }) {
     console.log("create task");
     close?.(); // Close the modal after task creation, if the close function is provided
   }
+  function addNewSubtask() {
+    setForm((prevForm) => {
+      console.log("Adding new subtask");
+      return {
+        ...prevForm,
+        subtasks: [...prevForm.subtasks, { id: crypto.randomUUID(), name: "" }],
+      };
+    });
+  }
+  function removeTask(id) {
+    setForm((prevForm) => ({
+      ...prevForm,
+      subtasks: prevForm.subtasks.filter((subtask) => subtask.id !== id),
+    }));
+  }
 
   return (
-    <div onClick={() => close?.()} className="AddNewTask">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          close?.();
+        }
+      }}
+      className="AddNewTask"
+    >
       <div
         onClick={(e) => {
           e.stopPropagation(); // Prevent click event from propagating to the parent div
@@ -41,7 +66,14 @@ export function AddNewTask({ close }) {
           }}
         >
           <div className="title-field">
-            <label htmlFor="title">Title</label>
+            <label
+              style={{
+                color: hasQInTitle ? "red" : undefined,
+              }}
+              htmlFor="title"
+            >
+              Title
+            </label>
             <input
               value={form.title}
               onChange={(event) => {
@@ -58,7 +90,7 @@ export function AddNewTask({ close }) {
           <div className="description-field">
             <label
               style={{
-                background: hasQ ? "red" : undefined,
+                color: hasQInDescription ? "red" : undefined,
               }}
               htmlFor="description"
             >
@@ -77,21 +109,70 @@ export function AddNewTask({ close }) {
               id="description"
             />
           </div>
+          <div className="Subtasks">
+            <label htmlFor="">Subtasks</label>
+            {form.subtasks &&
+              form.subtasks.map((subtask) => (
+                <div key={subtask.id} className="subtask-item">
+                  <input
+                    type="text"
+                    value={subtask.name}
+                    onChange={(e) => {
+                      setForm((prevForm) => ({
+                        ...prevForm,
+                        subtasks: prevForm.subtasks.map((s) =>
+                          s.id === subtask.id
+                            ? { ...s, name: e.target.value }
+                            : s
+                        ),
+                      }));
+                    }}
+                  />
+                  <button onClick={() => removeTask(subtask.id)}>X</button>
+                </div>
+              ))}
+            <div className="Subtask-btn">
+              <Button
+                color="secondary"
+                size="sm"
+                width="scope_3"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  addNewSubtask();
+                }}
+                shadow="null"
+                opacity="null"
+              >
+                + Add New Subtask
+              </Button>
+            </div>
+          </div>
           <div className="status">
-            <label htmlFor="status">Current Status</label>
+            <label htmlFor="status">Status</label>
             <div className="dropDown">
               <Menu>
                 <MenuButton className="Chevron-btn">
+                  {form.status}
                   <ChevronDownIcon className="Chevron-icon" />
                 </MenuButton>
                 <MenuItems transition anchor="bottom end" className="Items">
-                  <MenuItem className="Item">
+                  <MenuItem
+                    className="Item"
+                    onClick={() => setForm({ ...form, status: "Todo" })}
+                  >
                     <span>Todo</span>
                   </MenuItem>
-                  <MenuItem className="Item">
+                  <MenuItem
+                    className="Item"
+                    onClick={() => setForm({ ...form, status: "Doing" })}
+                  >
                     <span>Doing</span>
                   </MenuItem>
-                  <MenuItem className="Item">
+                  <MenuItem
+                    className="Item"
+                    onClick={() => setForm({ ...form, status: "Done" })}
+                  >
                     <span>Done</span>
                   </MenuItem>
                 </MenuItems>
