@@ -37,7 +37,7 @@
 }
 
 .AddNewTask-title {
-  color: var(--editborad-color);
+  color: var(--modalTile-color);
   font-size: large;
   font-weight: bold;
 }
@@ -156,3 +156,63 @@
   position: absolute;
   bottom: 32px;
 }
+
+.Subtasks {
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .subtask-item {
+    display: flex;
+    align-items: center;
+    width: 385px;
+    border: 1px solid #ccc;
+    height: 40px;
+    padding: 4px;
+    border-radius: 4px;
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 8px;
+      font-size: 18px;
+      width: calc(100% - 32px);
+      background: transparent;
+      color: var(--input-color);
+    }
+    button {
+      position: absolute;
+      right: 50px;
+      background: none;
+      border: none;
+      color: #828fa3;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      width: auto;
+      height: auto;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
+  .Subtask-btn {
+    margin-top: 12px !important;
+  }
+}
+//#404552

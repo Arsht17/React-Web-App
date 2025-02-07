@@ -111,26 +111,29 @@ export function AddNewTask({ close }) {
           </div>
           <div className="Subtasks">
             <label htmlFor="">Subtasks</label>
-            {form.subtasks &&
-              form.subtasks.map((subtask) => (
-                <div key={subtask.id} className="subtask-item">
-                  <input
-                    type="text"
-                    value={subtask.name}
-                    onChange={(e) => {
-                      setForm((prevForm) => ({
-                        ...prevForm,
-                        subtasks: prevForm.subtasks.map((s) =>
-                          s.id === subtask.id
-                            ? { ...s, name: e.target.value }
-                            : s
-                        ),
-                      }));
-                    }}
-                  />
-                  <button onClick={() => removeTask(subtask.id)}>X</button>
-                </div>
-              ))}
+            <div className="subtask-list">
+              {form.subtasks &&
+                form.subtasks.map((subtask) => (
+                  <div key={subtask.id} className="subtask-item">
+                    <input
+                      type="text"
+                      value={subtask.name}
+                      placeholder="e.g. Make coffee."
+                      onChange={(e) => {
+                        setForm((prevForm) => ({
+                          ...prevForm,
+                          subtasks: prevForm.subtasks.map((s) =>
+                            s.id === subtask.id
+                              ? { ...s, name: e.target.value }
+                              : s
+                          ),
+                        }));
+                      }}
+                    />
+                    <button onClick={() => removeTask(subtask.id)}>X</button>
+                  </div>
+                ))}
+            </div>
             <div className="Subtask-btn">
               <Button
                 color="secondary"
@@ -188,7 +191,7 @@ export function AddNewTask({ close }) {
               shadow="null"
               opacity="null"
             >
-              create task
+              Create Task
             </Button>
           </div>
         </form>

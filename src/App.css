@@ -9,6 +9,8 @@
   --head-bg: white;
   --create-bg: white;
   --editborad-bg: #fefefe;
+  --editborad-color: #828fa3;
+  --modalTile-color: black;
   --head-border: 1px solid #f4f7fd;
   --side-border: 1px solid #f4f7fd;
   --kanban-color: rgb(0, 0, 0);
@@ -29,6 +31,7 @@
   --main-color: white;
   --kanban-color: white;
   --editborad-color: white;
+  --modalTile-color: #ffffff;
   --head-border: 1px solid #20212c;
   --side-border: 1px solid #20212c;
   --switch-container-color:#20212C;
