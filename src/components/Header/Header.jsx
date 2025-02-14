@@ -25,13 +25,17 @@ export function Header({ openEditBoardModal, openAddNewTask }) {
     dispatch(boardsSlice.actions.deleteBoard(selectedBoard.id)); //update client
     setLocation("/"); // update
   }
-  const isAddColumnDisabled = !selectedBoard;
+
+  const isAddTaskDisabled =
+    !selectedBoard ||
+    !selectedBoard.columns ||
+    selectedBoard.columns.length === 0;
   return (
     <div className="Header">
       <p className="title"> Platform Launch</p>
       <div className="add">
         <Button
-          disabled={isAddColumnDisabled}
+          disabled={isAddTaskDisabled}
           color="primary"
           size="lg"
           shadow="null"

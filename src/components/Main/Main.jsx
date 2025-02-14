@@ -40,9 +40,9 @@ export function Main({ openEditBoardModal }) {
               color="primary"
               size="lg"
               opacity=""
-              onClick={() => {
-                openEditBoardModal(selectedBoard);
-              }}
+              // onClick={() => {
+              //   openAddNewColumnModal(selectedBoard);
+              // }}
             >
               + Add New Column
             </Button>
