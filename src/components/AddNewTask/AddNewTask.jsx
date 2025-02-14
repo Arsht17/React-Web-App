@@ -27,6 +27,9 @@ export function AddNewTask({ close }) {
   function addNewSubtask() {
     setForm((prevForm) => {
       console.log("Adding new subtask");
+      if (prevForm.subtasks.length >= 6) {
+        return prevForm; // Prevent adding more
+      }
       return {
         ...prevForm,
         subtasks: [...prevForm.subtasks, { id: crypto.randomUUID(), name: "" }],
@@ -34,10 +37,15 @@ export function AddNewTask({ close }) {
     });
   }
   function removeTask(id) {
-    setForm((prevForm) => ({
-      ...prevForm,
-      subtasks: prevForm.subtasks.filter((subtask) => subtask.id !== id),
-    }));
+    setForm((prevForm) => {
+      const updatedSubtasks = prevForm.subtasks.filter(
+        (subtask) => subtask.id !== id
+      );
+      return {
+        ...prevForm,
+        subtasks: updatedSubtasks,
+      };
+    });
   }
 
   return (
@@ -54,6 +62,9 @@ export function AddNewTask({ close }) {
           e.stopPropagation(); // Prevent click event from propagating to the parent div
         }}
         className="AddNewTask-content"
+        style={{
+          height: `${675 + Math.max(0, (form.subtasks.length - 2) * 40)}px`,
+        }}
       >
         <span className="AddNewTask-close" onClick={close}>
           &times;
@@ -105,7 +116,7 @@ export function AddNewTask({ close }) {
                 });
               }}
               type="text"
-              placeholder="e.g. It’s always good to take a break."
+              placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
               id="description"
             />
           </div>
@@ -118,7 +129,7 @@ export function AddNewTask({ close }) {
                     <input
                       type="text"
                       value={subtask.name}
-                      placeholder="e.g. Make coffee."
+                      placeholder="e.g. Drink coffee & smile"
                       onChange={(e) => {
                         setForm((prevForm) => ({
                           ...prevForm,
@@ -134,7 +145,14 @@ export function AddNewTask({ close }) {
                   </div>
                 ))}
             </div>
-            <div className="Subtask-btn">
+            <div
+              className="Subtask-btn"
+              style={{
+                marginTop: `${
+                  24 + Math.max(0, (form.subtasks.length - 2) * 40)
+                }px`,
+              }}
+            >
               <Button
                 color="secondary"
                 size="sm"
@@ -144,6 +162,7 @@ export function AddNewTask({ close }) {
                   e.stopPropagation();
                   addNewSubtask();
                 }}
+                disabled={form.subtasks.length >= 6}
                 shadow="null"
                 opacity="null"
               >
@@ -151,7 +170,12 @@ export function AddNewTask({ close }) {
               </Button>
             </div>
           </div>
-          <div className="status">
+          <div
+            className="status"
+            style={{
+              top: `${500 + Math.max(0, (form.subtasks.length - 2) * 40)}px`,
+            }}
+          >
             <label htmlFor="status">Status</label>
             <div className="dropDown">
               <Menu>

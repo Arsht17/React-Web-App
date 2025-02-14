@@ -16,11 +16,16 @@
   position: relative;
   background-color: var(--editborad-bg);
   color: var(--editborad-color);
-  // margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 480px;
-  height: 675px;
+  min-height: 675px;
+  transition: height 0.3s ease-in-out;
+
+  // Dynamically expand height
+  &.expanded {
+    min-height: auto;
+  }
 }
 .AddNewTask-close {
   color: #aaa;
@@ -52,7 +57,7 @@
   width: 416px;
   height: 40px;
   padding: 8px;
-  font-size: 18px;
+  font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
@@ -75,7 +80,7 @@
     width: 416px;
     height: 112px;
     padding: 8px;
-    font-size: 18px;
+    font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -87,7 +92,7 @@
 
     &::placeholder {
       text-align: left;
-      font-size: 18px;
+      font-size: 14px;
     }
   }
 
@@ -98,7 +103,8 @@
 }
 .status {
   position: absolute;
-  bottom: 96px;
+  top: 500px;
+  transition: top 0.3s ease-in-out;
 }
 .status label {
   font-size: 14px;
@@ -188,7 +194,7 @@
       border: none;
       outline: none;
       padding: 8px;
-      font-size: 18px;
+      font-size: 14px;
       width: calc(100% - 32px);
       background: transparent;
       color: var(--input-color);
@@ -213,6 +219,7 @@
   }
   .Subtask-btn {
     margin-top: 12px !important;
+    transition: margin-top 0.3s ease-in-out;
   }
 }
 //#404552
