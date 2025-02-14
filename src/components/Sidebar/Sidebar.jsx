@@ -10,7 +10,7 @@ import Button from "../Button/Button";
 export function Sidebar(props) {
   const { setIsDarkMode } = props;
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
-
+  const [hoveredBoard, setHoveredBoard] = useState(null);
   const params = useParams();
   const selectedBoardName = params?.boardName;
 
@@ -63,6 +63,7 @@ export function Sidebar(props) {
           <h3 style={{ letterSpacing: "2.4px" }}>ALL BOARDS({totalBoards})</h3>
           {boards.map((board) => {
             const isSelected = board.name == selectedBoardName;
+            const isHovering = hoveredBoard === board.id;
             return (
               <div
                 key={board.id}
@@ -70,27 +71,39 @@ export function Sidebar(props) {
                   //   //setSelectedBoardId(board.id);
                   dispatch(boardsSlice.actions.selectedBoard(board.id));
                 }}
+                onMouseEnter={() => setHoveredBoard(board.id)}
+                onMouseLeave={() => setHoveredBoard(null)}
                 style={{
-                  background: isSelected ? "#635FC7" : "transparent",
-                  color: isSelected ? "white" : "inherit",
+                  background: isSelected
+                    ? "#635FC7"
+                    : isHovering
+                    ? "var(--board-hover)"
+                    : "transparent",
+                  color: isSelected
+                    ? "white"
+                    : isHovering
+                    ? "#635FC7"
+                    : "inherit",
+                  transition: "background 0.2s ease, color 0.2s ease",
                 }}
                 className="board"
               >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M0.846133 0.846133C0.304363 1.3879 0 2.12271 0 2.88889V13.1111C0 13.8773 0.304363 14.6121 0.846133 15.1538C1.3879 15.6957 2.12271 16 2.88889 16H13.1111C13.8773 16 14.6121 15.6957 15.1538 15.1538C15.6957 14.6121 16 13.8773 16 13.1111V2.88889C16 2.12271 15.6957 1.3879 15.1538 0.846133C14.6121 0.304363 13.8773 0 13.1111 0H2.88889C2.12271 0 1.3879 0.304363 0.846133 0.846133ZM1.33333 13.1111V8.44448H9.77781V14.6667H2.88889C2.03022 14.6667 1.33333 13.9698 1.33333 13.1111ZM9.77781 7.11111V1.33333H2.88889C2.47633 1.33333 2.08067 1.49723 1.78895 1.78895C1.49723 2.08067 1.33333 2.47633 1.33333 2.88889V7.11111H9.77781ZM11.1111 5.77778H14.6667V10.2222H11.1111V5.77778ZM14.6667 11.5555H11.1111V14.6667H13.1111C13.5236 14.6667 13.9194 14.5028 14.2111 14.2111C14.5028 13.9194 14.6667 13.5236 14.6667 13.1111V11.5555ZM14.6667 2.88889V4.44445H11.1111V1.33333H13.1111C13.5236 1.33333 13.9194 1.49723 14.2111 1.78895C14.5028 2.08067 14.6667 2.47633 14.6667 2.88889Z"
-                    fill="#828FA3"
+                <div className="board-content">
+                  <img
+                    src={
+                      isSelected
+                        ? "/board-selected.png"
+                        : isHovering
+                        ? "/board-hover.png"
+                        : "/board-default.png"
+                    }
+                    alt="Board Icon"
+                    width="16"
+                    height="16"
+                    className="board-icon"
                   />
-                </svg>
-                <Link href={`/${board.name}`}>{board.name}</Link>
+                  <Link href={`/${board.name}`}>{board.name}</Link>
+                </div>
               </div>
             );
           })}

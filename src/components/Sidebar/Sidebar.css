@@ -51,14 +51,24 @@
   padding-left: 48px;
   gap: 16px;
 }
-.board:hover {
-  background-color: var(--board-hover);
-}
+
 .board a {
   width: 100%;
   height: 100%;
   display: block;
 }
+.board-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+.board-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 .switch-container {
   display: flex;
   justify-content: center;
