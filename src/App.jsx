@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { boardsSlice, themeSlice } from "./store";
 import { AddNewTask } from "./components/AddNewTask/AddNewTask";
+import { AddNewColumn } from "./components/AddNewColumn/AddNewColumn";
 
 async function getBoards() {
   const res = await fetch("http://localhost:4000/api/boards");
@@ -28,6 +29,7 @@ function App() {
   console.log("boardToEdit", boardToEdit);
   const dispatch = useDispatch();
   const [isAddNewTaskOpen, setIsAddNewTaskOpen] = useState(false);
+  const [isAddNewColumnOpen, setIsAddNewColumnOpen] = useState(false);
 
   function openModal(board) {
     setIsBoardModalOpen(true);
@@ -45,6 +47,13 @@ function App() {
 
   function closeAddNewTask() {
     setIsAddNewTaskOpen(false);
+  }
+  function openAddNewColumn() {
+    setIsAddNewColumnOpen(true);
+  }
+
+  function closeAddNewColumn() {
+    setIsAddNewColumnOpen(false);
   }
 
   useEffect(() => {
@@ -80,12 +89,13 @@ function App() {
           openEditBoardModal={openModal}
           openAddNewTask={openAddNewTask}
         />
-        <Main openEditBoardModal={openModal} />
+        <Main openAddNewColumn={openAddNewColumn} />
       </div>
       {isBoardModalOpen && (
         <BoardFormModal close={closeModal} boardToEdit={boardToEdit} />
       )}
       {isAddNewTaskOpen && <AddNewTask close={closeAddNewTask} />}
+      {isAddNewColumnOpen && <AddNewColumn onClose={closeAddNewColumn} />}
     </div>
   );
 }

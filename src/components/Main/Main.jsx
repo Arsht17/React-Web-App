@@ -5,7 +5,7 @@ import "./Main.css";
 import { boardsSlice } from "../../store";
 import { useParams } from "wouter";
 
-export function Main({ openEditBoardModal }) {
+export function Main({ openAddNewColumn }) {
   const appContext = useAppContext();
   //const { selectedBoard } = appContext;
 
@@ -40,9 +40,9 @@ export function Main({ openEditBoardModal }) {
               color="primary"
               size="lg"
               opacity=""
-              // onClick={() => {
-              //   openAddNewColumnModal(selectedBoard);
-              // }}
+              onClick={() => {
+                openAddNewColumn(selectedBoard);
+              }}
             >
               + Add New Column
             </Button>
