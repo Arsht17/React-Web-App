@@ -32,6 +32,7 @@
   font-weight: bold;
   border: none;
   background-color: var(--create-bg);
+  cursor: pointer;
 }
 .Boards-list {
   position: relative;
