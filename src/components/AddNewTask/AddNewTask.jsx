@@ -4,12 +4,24 @@ import Button from "../Button/Button";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
+const placeholderTexts = [
+  "e.g. Drink coffee & smile",
+  "e.g. Write project notes",
+  "e.g. Review tasks",
+  "e.g. Organize workspace",
+  "e.g. Plan tomorrow’s work",
+  "e.g. Take a short walk",
+];
+
 export function AddNewTask({ close }) {
   const [form, setForm] = useState({
     title: "",
     description: "",
     status: "Todo", // Default status
-    subtasks: [], // Ensure subtasks is initialized
+    subtasks: [
+      { id: crypto.randomUUID(), name: "", isError: false },
+      { id: crypto.randomUUID(), name: "", isError: false },
+    ], // Ensure subtasks is initialized
   });
 
   // Derived state for validation
@@ -24,15 +36,52 @@ export function AddNewTask({ close }) {
     console.log("create task");
     close?.(); // Close the modal after task creation, if the close function is provided
   }
+  function editSubTask(id, newName) {
+    setForm((prevForm) => ({
+      ...prevForm,
+      subtasks: prevForm.subtasks.map((subtask) =>
+        subtask.id === id
+          ? { ...subtask, name: newName, isError: newName.trim() === "" }
+          : subtask
+      ),
+    }));
+  }
+
   function addNewSubtask() {
+    console.log("Adding new subtask");
     setForm((prevForm) => {
-      console.log("Adding new subtask");
+      const hasEmptySubtask = prevForm.subtasks.some(
+        (subtask) => subtask.name.trim() === ""
+      );
+
+      if (hasEmptySubtask) {
+        return {
+          ...prevForm,
+          subtasks: prevForm.subtasks.map((subtask) => ({
+            ...subtask,
+            isError: subtask.name.trim() === "", // Set error if empty
+          })),
+        };
+      }
       if (prevForm.subtasks.length >= 6) {
         return prevForm; // Prevent adding more
       }
+
+      // Get placeholder from array
+      const nextPlaceholder =
+        placeholderTexts[prevForm.subtasks.length % placeholderTexts.length];
+
       return {
         ...prevForm,
-        subtasks: [...prevForm.subtasks, { id: crypto.randomUUID(), name: "" }],
+        subtasks: [
+          ...prevForm.subtasks,
+          {
+            id: crypto.randomUUID(),
+            name: "",
+            isError: false,
+            placeholder: nextPlaceholder,
+          },
+        ],
       };
     });
   }
@@ -47,7 +96,6 @@ export function AddNewTask({ close }) {
       };
     });
   }
-
   return (
     <div
       onClick={(e) => {
@@ -63,7 +111,7 @@ export function AddNewTask({ close }) {
         }}
         className="AddNewTask-content"
         style={{
-          height: `${675 + Math.max(0, (form.subtasks.length - 2) * 55)}px`,
+          height: `${675 + Math.max(0, (form.subtasks.length - 2) * 50)}px`,
         }}
       >
         <span className="AddNewTask-close" onClick={close}>
@@ -125,21 +173,20 @@ export function AddNewTask({ close }) {
             <div className="subtask-list">
               {form.subtasks &&
                 form.subtasks.map((subtask) => (
-                  <div key={subtask.id} className="subtask-item">
+                  <div
+                    key={subtask.id}
+                    className="subtask-item"
+                    style={{
+                      borderColor: subtask.isError ? "red" : "#ccc",
+                    }}
+                  >
                     <input
                       type="text"
                       value={subtask.name}
-                      placeholder="e.g. Drink coffee & smile"
-                      onChange={(e) => {
-                        setForm((prevForm) => ({
-                          ...prevForm,
-                          subtasks: prevForm.subtasks.map((s) =>
-                            s.id === subtask.id
-                              ? { ...s, name: e.target.value }
-                              : s
-                          ),
-                        }));
-                      }}
+                      placeholder={
+                        subtask.placeholder || "e.g. Drink coffee & smile"
+                      }
+                      onChange={(e) => editSubTask(subtask.id, e.target.value)}
                     />
                     <button onClick={() => removeTask(subtask.id)}>X</button>
                   </div>
