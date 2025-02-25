@@ -63,7 +63,7 @@ export function AddNewTask({ close }) {
         }}
         className="AddNewTask-content"
         style={{
-          height: `${675 + Math.max(0, (form.subtasks.length - 2) * 40)}px`,
+          height: `${675 + Math.max(0, (form.subtasks.length - 2) * 55)}px`,
         }}
       >
         <span className="AddNewTask-close" onClick={close}>
@@ -148,9 +148,7 @@ export function AddNewTask({ close }) {
             <div
               className="Subtask-btn"
               style={{
-                marginTop: `${
-                  24 + Math.max(0, (form.subtasks.length - 2) * 40)
-                }px`,
+                marginTop: `${12 + Math.max(0, form.subtasks.length - 2)}px`,
               }}
             >
               <Button
@@ -173,7 +171,7 @@ export function AddNewTask({ close }) {
           <div
             className="status"
             style={{
-              top: `${500 + Math.max(0, (form.subtasks.length - 2) * 40)}px`,
+              top: `${500 + Math.max(0, (form.subtasks.length - 2) * 55)}px`,
             }}
           >
             <label htmlFor="status">Status</label>

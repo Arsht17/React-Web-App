@@ -103,7 +103,7 @@
 .status {
   position: absolute;
   top: 500px;
-  transition: top 0.3s ease-in-out;
+  transition: top 0.1s ease-in-out;
 }
 .status label {
   font-size: 14px;
@@ -217,8 +217,8 @@
     }
   }
   .Subtask-btn {
-    margin-top: 12px !important;
-    transition: margin-top 0.3s ease-in-out;
+    margin-top: 12px;
+    transition: margin-top 0.1s ease-in-out;
   }
 }
 //#404552
