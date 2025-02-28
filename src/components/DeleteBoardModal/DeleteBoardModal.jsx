@@ -16,7 +16,7 @@ export function DeleteBoardModal({ isOpen, onClose, onConfirm, boardName }) {
           board? This <br /> action will remove all columns and tasks and cannot
           be reversed.
         </p>
-        <div className="EditBoardModal-actions">
+        <div className="DeleteBoardModal-actions">
           <Button
             color="destructive"
             size="sm"

@@ -1,13 +1,14 @@
 import { useAppContext } from "../../contexts/AppContext";
 import { boardsSlice } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import "./BoardFormModal.css";
+import "./BoardFormModal.scss";
 import { useState } from "react";
 import Button from "../Button/Button";
 import { Api } from "../../api";
 
 export function BoardFormModal({ close, boardToEdit }) {
   const dispatch = useDispatch();
+  const [error, setError] = useState(false);
 
   const [form, setForm] = useState(
     boardToEdit
@@ -23,15 +24,32 @@ export function BoardFormModal({ close, boardToEdit }) {
       ...form,
       name: newName,
     });
+    setError(newName.trim() === "");
   }
 
   function addNewColumn() {
-    setForm({
-      ...form,
-      columns: [
-        ...form.columns,
-        { id: crypto.randomUUID(), name: "", tasks: [] },
-      ],
+    setForm((prevForm) => {
+      console.log("Adding column");
+      const hasEmptyColumn = prevForm.columns.some(
+        (column) => column.name.trim() === ""
+      );
+      if (hasEmptyColumn) {
+        console.log(" Empty column exists");
+        return {
+          ...prevForm,
+          columns: prevForm.columns.map((column) => ({
+            ...column,
+            isError: column.name.trim() === "",
+          })),
+        };
+      }
+      if (prevForm.columns.length >= 3) {
+        return prevForm; // Prevent adding mosre
+      }
+      return {
+        ...prevForm,
+        columns: [...prevForm.columns, { id: crypto.randomUUID(), name: "" }],
+      };
     });
   }
 
@@ -40,6 +58,16 @@ export function BoardFormModal({ close, boardToEdit }) {
       ...form,
       columns: form.columns.filter((column) => column.id != id),
     });
+  }
+  function handleColumnChange(id, newName) {
+    setForm((prevForm) => ({
+      ...prevForm,
+      columns: prevForm.columns.map((column) =>
+        column.id === id
+          ? { ...column, name: newName, isError: newName.trim() === "" }
+          : column
+      ),
+    }));
   }
 
   function editColumn(newName, id) {
@@ -55,6 +83,10 @@ export function BoardFormModal({ close, boardToEdit }) {
   }
 
   async function save() {
+    if (form.name.trim() === "") {
+      setError(true); //  Show error message
+      return;
+    }
     console.log("boardToEdit : ", boardToEdit);
     if (boardToEdit) {
       const _board = await Api.editBoard(form);
@@ -70,6 +102,8 @@ export function BoardFormModal({ close, boardToEdit }) {
 
   const title = boardToEdit ? "Edit Board" : "Add new Board";
   const actionButton = boardToEdit ? "Save Changes" : "Create new Board";
+  const nameLabel = boardToEdit ? "Board Name" : "Name";
+  const columnsLabel = boardToEdit ? "Board Columns" : " Columns";
 
   //const appContext = useAppContext();
   //const { selectedBoard } = appContext;
@@ -86,60 +120,84 @@ export function BoardFormModal({ close, boardToEdit }) {
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className="EditBoardModal-content"
       >
-        <span className="EditBoardModal-close" onClick={close}>
-          &times;
-        </span>
-        <div className="EditBoardModal-title"> {title}</div>
-        <div className="">
-          <label htmlFor="">board name:</label>
-          <input
-            type="text"
-            onChange={(e) => editBoardName(e.target.value)}
-            defaultValue={form?.name}
-          />
-        </div>
-        <div className="">
-          <label htmlFor="">boards columns</label>
-          {form.columns?.map((column) => {
-            return (
-              <div key={column.id} className="">
-                <input
-                  onChange={(event) => {
-                    editColumn(event.target.value, column.id);
+        <div
+          className="EditBoardModal-content"
+          style={{
+            height: `${481 + (error ? 32 : 0)}px`,
+          }}
+        >
+          <span className="EditBoardModal-close" onClick={close}>
+            &times;
+          </span>
+          <h3 className="EditBoardModal-title"> {title}</h3>
+          <div className="name-field">
+            <label htmlFor="board-name">{nameLabel}</label>
+            <input
+              id="board-name"
+              type="text"
+              placeholder="e.g. Web Design"
+              onChange={(e) => editBoardName(e.target.value)}
+              value={form?.name}
+              style={{
+                borderColor: error ? "red" : "#ccc",
+              }}
+            />
+            {error && <p className="error-message">Board Name is required</p>}
+          </div>
+          <div className="columns-list">
+            <label htmlFor="columns-name">{columnsLabel}</label>
+            {form.columns?.map((column) => {
+              return (
+                <div
+                  id="columns-name"
+                  key={column.id}
+                  className="column-items"
+                  style={{
+                    borderColor: column.isError ? "red" : "#ccc",
                   }}
-                  defaultValue={column.name}
-                  type="text"
-                />
-                <button onClick={() => removeColumn(column.id)}>X</button>
-              </div>
-            );
-          })}
-        </div>
-        <div className="column-btn">
-          <Button
-            color="secondary"
-            size="sm"
-            width="scope_3"
-            onClick={addNewColumn}
-            shadow="null"
-            opacity="null"
-          >
-            + Add New Column
-          </Button>
-        </div>
-        <div className="save-btn">
-          <Button
-            color="primary"
-            size="sm"
-            width="scope_3"
-            onClick={save}
-            shadow="null"
-            opacity="null"
-          >
-            {actionButton}
-          </Button>
+                >
+                  <input
+                    placeholder="Enter column name"
+                    onChange={(event) => {
+                      editColumn(event.target.value, column.id);
+                      handleColumnChange(column.id, event.target.value);
+                    }}
+                    defaultValue={column.name}
+                    type="text"
+                  />
+                  <button
+                    className="remove"
+                    onClick={() => removeColumn(column.id)}
+                  >
+                    X
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+          <div className="EditBoardModal-actions">
+            <Button
+              color="secondary"
+              size="sm"
+              width="scope_3"
+              onClick={addNewColumn}
+              shadow="null"
+              opacity="null"
+            >
+              + Add New Column
+            </Button>
+            <Button
+              color="primary"
+              size="sm"
+              width="scope_3"
+              onClick={save}
+              shadow="null"
+              opacity="null"
+            >
+              {actionButton}
+            </Button>
+          </div>
         </div>
       </div>
     </div>

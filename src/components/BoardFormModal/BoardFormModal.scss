@@ -1,4 +1,4 @@
-.AddNewColumnModal {
+.EditBoardModal {
   position: fixed;
   z-index: 1;
   left: 0;
@@ -11,51 +11,72 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.AddNewColumnModal-content {
+.EditBoardModal-content {
   position: relative;
   background-color: var(--editborad-bg);
   color: var(--editborad-color);
   padding: 20px;
   border-radius: 6px;
   width: 480px;
-  height: 380px;
+  height: 481px;
   transition: height 0.1s ease-in-out;
 
-  // Dynamically expand height
   &.expanded {
     min-height: auto;
   }
 }
-.AddNewColumnModal-close {
+.EditBoardModal-close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.AddNewColumnModal-close:hover,
-.AddNewColumnModal-close:focus {
+.EditBoardModal-close:hover,
+.EditBoardModal-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
-.AddNewColumnModal-title {
+
+.EditBoardModal-title {
   color: var(--modalTile-color);
   font-size: large;
   font-weight: bold;
 }
-.AddNewColumnModal-actions {
+.name-field {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  label {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+.name-field input {
+  width: 416px;
+  height: 40px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: var(--field-addnewtask-color);
+  color: var(--input-color);
+}
+.EditBoardModal-actions {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 16px;
 }
-
-.Columns-list {
+.columns-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-bottom: 12px;
 
   label {
     font-size: 14px;
@@ -65,6 +86,7 @@
 .column-items {
   display: flex;
   flex-direction: column;
+  position: relative;
   justify-content: space-between;
   border: 1px solid #ccc;
   width: 385px;
@@ -89,10 +111,11 @@
     }
   }
 }
-
 .remove {
   position: absolute;
-  right: 50px;
+  right: -32px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   color: #828fa3;
@@ -106,4 +129,9 @@
   &:hover {
     color: red;
   }
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
