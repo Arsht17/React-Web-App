@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import { useState } from "react";
 
 export function AddNewColumn({ onClose }) {
+  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     name: "",
     columns: [{ id: crypto.randomUUID(), name: "", isError: false }], // Start with one column
@@ -40,7 +41,10 @@ export function AddNewColumn({ onClose }) {
       }
       return {
         ...prevForm,
-        columns: [...prevForm.columns, { id: crypto.randomUUID(), name: "" }],
+        columns: [
+          ...prevForm.columns,
+          { id: crypto.randomUUID(), name: "", isError: false },
+        ],
       };
     });
   }
@@ -53,7 +57,22 @@ export function AddNewColumn({ onClose }) {
   }
 
   function CreateNewColumn() {
-    console.log("creating new column");
+    const hasEmptyColumn = form.columns.some(
+      (column) => column.name.trim() === ""
+    );
+
+    if (hasEmptyColumn) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        columns: prevForm.columns.map((column) => ({
+          ...column,
+          isError: column.name.trim() === "",
+        })),
+      }));
+      return;
+    }
+
+    console.log("Creating new column");
     onClose?.();
   }
   console.log("form", form);
@@ -88,7 +107,11 @@ export function AddNewColumn({ onClose }) {
                   onChange={(e) =>
                     handleColumnChange(column.id, e.target.value)
                   }
+                  className={column.isError ? "error" : ""}
                 />
+                {column.isError && (
+                  <span className="error-message">Can’t be empty</span>
+                )}
                 <button
                   className="remove"
                   onClick={() => removeColumn(column.id)}

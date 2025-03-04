@@ -89,6 +89,15 @@
     }
   }
 }
+.column-items .error-message {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-55%);
+  color: red;
+  font-size: 14px;
+  pointer-events: none;
+}
 
 .remove {
   position: absolute;
