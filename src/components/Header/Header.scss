@@ -5,16 +5,44 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: var(--head-border);
-  /* gap: 16px; */
   justify-content: space-between;
   padding: 16px;
+  position: relative;
+  width: 100%;
+}
+.Header::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 300px;
+  width: calc(100% - 300px);
+  height: 1px;
+  background-color: var(--head-border);
+}
+.kanban {
+  font-size: xx-large;
+  font-weight: bold;
+  position: relative;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  color: var(--kanban-color);
+}
+.kanban-logo {
+  margin-right: 16px;
+}
+.line {
+  width: 1px;
+  height: 96px;
+  border: var(--side-border);
+  position: absolute;
+  left: calc(100% + 98px);
 }
 .title {
   font-size: x-large;
   font-weight: bold;
   position: relative;
-  left: 24px;
+  left: 142px;
 }
 .add {
   margin-left: auto;
@@ -44,6 +72,8 @@
   overflow: hidden;
 }
 .menuItem {
+  display: flex;
+  align-items: center;
   gap: 4px;
   cursor: pointer;
   white-space: nowrap;

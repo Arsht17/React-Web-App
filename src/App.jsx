@@ -72,25 +72,23 @@ function App() {
 
   return (
     <div className="app">
-      {/* <div className="left"> */}
-      <Sidebar
-        onCreateBoard={openModal}
-        isDarkMode={isDarkMode}
-        setIsDarkMode={() => {
-          dispatch(themeSlice.actions.toggleTheme());
-          //setIsDarkMode(!isDarkMode);
-          //html element to be dark
-          document.documentElement.classList.toggle("dark", !isDarkMode);
-        }}
-      />
-      {/* </div> */}
-      <div className="right">
-        <Header
-          openEditBoardModal={openModal}
-          openAddNewTask={openAddNewTask}
+      <Header openEditBoardModal={openModal} openAddNewTask={openAddNewTask} />
+      <div className="content">
+        <Sidebar
+          onCreateBoard={openModal}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={() => {
+            dispatch(themeSlice.actions.toggleTheme());
+            //setIsDarkMode(!isDarkMode);
+            //html element to be dark
+            document.documentElement.classList.toggle("dark", !isDarkMode);
+          }}
         />
-        <Main openAddNewColumn={openAddNewColumn} />
+        <div className="right">
+          <Main openAddNewColumn={openAddNewColumn} />
+        </div>
       </div>
+
       {isBoardModalOpen && (
         <BoardFormModal close={closeModal} boardToEdit={boardToEdit} />
       )}

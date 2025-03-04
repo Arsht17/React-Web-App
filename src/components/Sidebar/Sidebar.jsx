@@ -29,35 +29,6 @@ export function Sidebar(props) {
   return (
     <>
       <div className={`Sidebar ${sidebarIsOpen ? "open" : ""}`}>
-        <p className="kanban">
-          <svg
-            className="kanban-logo"
-            width="24"
-            height="25"
-            viewBox="0 0 24 25"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect width="6" height="25" rx="2" fill="#635FC7" />
-            <rect
-              opacity="0.75"
-              x="9"
-              width="6"
-              height="25"
-              rx="2"
-              fill="#635FC7"
-            />
-            <rect
-              opacity="0.5"
-              x="18"
-              width="6"
-              height="25"
-              rx="2"
-              fill="#635FC7"
-            />
-          </svg>
-          KanBan
-        </p>
         {/* <input onChange={(e) => setText(e.target.value)} type="text" /> */}
         <div className="Boards-list">
           <h3 style={{ letterSpacing: "2.4px" }}>ALL BOARDS({totalBoards})</h3>
@@ -114,6 +85,11 @@ export function Sidebar(props) {
               props.onCreateBoard?.();
             }}
           >
+            <img
+              src="/board-default.png"
+              alt="Board Icon"
+              className="board-icon"
+            />
             + Create New Board
           </button>
         </div>
@@ -165,7 +141,15 @@ export function Sidebar(props) {
             onClick={CloseSidebar}
             opacity="0"
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "15px",
+                position: "relative",
+                left: "31px",
+              }}
+            >
               <svg
                 width="18"
                 height="16"
