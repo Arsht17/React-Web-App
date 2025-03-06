@@ -187,7 +187,11 @@ export function AddNewTask({ close }) {
                         subtask.placeholder || "e.g. Drink coffee & smile"
                       }
                       onChange={(e) => editSubTask(subtask.id, e.target.value)}
+                      className={subtask.isError ? "error" : ""}
                     />
+                    {subtask.isError && (
+                      <span className="error-message">Can’t be empty</span>
+                    )}
                     <button onClick={() => removeTask(subtask.id)}>X</button>
                   </div>
                 ))}
