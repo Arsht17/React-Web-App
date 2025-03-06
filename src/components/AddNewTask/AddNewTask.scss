@@ -229,4 +229,14 @@
   pointer-events: none;
   font-weight: 400;
 }
+input.error,
+textarea.error {
+  border-color: red;
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  border-color: red;
+}
 //#404552

@@ -23,6 +23,7 @@ export function AddNewTask({ close }) {
       { id: crypto.randomUUID(), name: "", isError: false },
     ], // Ensure subtasks is initialized
   });
+  const [error, setErrors] = useState({ title: false, description: false });
 
   // Derived state for validation
   const isValidTitle = !!form.title.length;
@@ -33,9 +34,21 @@ export function AddNewTask({ close }) {
   console.log("form", form);
 
   function createTask() {
-    console.log("create task");
-    close?.(); // Close the modal after task creation, if the close function is provided
+    let newErrors = {
+      title: form.title.trim() === "",
+      description: form.description.trim() === "",
+    };
+
+    setErrors(newErrors); // Update error state
+
+    if (newErrors.title || newErrors.description) {
+      return; // Stop if there are errors
+    }
+
+    console.log("Creating task:", form);
+    close?.();
   }
+
   function editSubTask(id, newName) {
     setForm((prevForm) => ({
       ...prevForm,
@@ -85,6 +98,7 @@ export function AddNewTask({ close }) {
       };
     });
   }
+
   function removeTask(id) {
     setForm((prevForm) => {
       const updatedSubtasks = prevForm.subtasks.filter(
@@ -96,6 +110,7 @@ export function AddNewTask({ close }) {
       };
     });
   }
+
   return (
     <div
       onClick={(e) => {
@@ -111,7 +126,12 @@ export function AddNewTask({ close }) {
         }}
         className="AddNewTask-content"
         style={{
-          height: `${675 + Math.max(0, (form.subtasks.length - 2) * 50)}px`,
+          height: `${
+            675 +
+            Math.max(0, (form.subtasks.length - 2) * 50) +
+            (error.title ? 35 : 0) +
+            (error.description ? 35 : 0)
+          }px`,
         }}
       >
         <span className="AddNewTask-close" onClick={close}>
@@ -140,11 +160,16 @@ export function AddNewTask({ close }) {
                   ...form, // Copy current form
                   title: event.target.value, // Override
                 });
+                if (event.target.value.trim() !== "") {
+                  setErrors((prev) => ({ ...prev, title: false }));
+                }
               }}
               type="text"
               placeholder="e.g. Take coffee break"
               id="title"
+              className={error.title ? "error" : ""}
             />
+            {error.title && <p className="error-message">Title is required</p>}
           </div>
           <div className="description-field">
             <label
@@ -162,11 +187,18 @@ export function AddNewTask({ close }) {
                   ...form, // Copy current form
                   description: event.target.value, // Override
                 });
+                if (event.target.value.trim() !== "") {
+                  setErrors((prev) => ({ ...prev, description: false }));
+                }
               }}
               type="text"
               placeholder="e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little."
               id="description"
+              className={error.description ? "error" : ""}
             />
+            {error.description && (
+              <p className="error-message">Description is required</p>
+            )}
           </div>
           <div className="Subtasks">
             <label htmlFor="">Subtasks</label>
@@ -222,7 +254,12 @@ export function AddNewTask({ close }) {
           <div
             className="status"
             style={{
-              top: `${500 + Math.max(0, (form.subtasks.length - 2) * 55)}px`,
+              top: `${
+                500 +
+                Math.max(0, (form.subtasks.length - 2) * 55) +
+                (error.title ? 35 : 0) +
+                (error.description ? 35 : 0)
+              }px`,
             }}
           >
             <label htmlFor="status">Status</label>
@@ -257,12 +294,12 @@ export function AddNewTask({ close }) {
           </div>
           <div className="createTask-btn">
             <Button
-              disabled={!isValidTitle || !isValidDescription}
               color="primary"
               size="sm"
               width="scope_3"
               shadow="null"
               opacity="null"
+              onClick={createTask}
             >
               Create Task
             </Button>
