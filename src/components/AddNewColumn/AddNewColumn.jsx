@@ -3,7 +3,6 @@ import Button from "../Button/Button";
 import { useState } from "react";
 
 export function AddNewColumn({ onClose }) {
-  const [error, setError] = useState(false);
   const [form, setForm] = useState({
     name: "",
     columns: [{ id: crypto.randomUUID(), name: "", isError: false }], // Start with one column

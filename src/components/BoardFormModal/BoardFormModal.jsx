@@ -165,7 +165,12 @@ export function BoardFormModal({ close, boardToEdit }) {
                     }}
                     defaultValue={column.name}
                     type="text"
+                    className={column.isError ? "error" : ""}
                   />
+                  {column.isError && (
+                    <span className="error-message">Can’t be empty</span>
+                  )}
+
                   <button
                     className="remove"
                     onClick={() => removeColumn(column.id)}

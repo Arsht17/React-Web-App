@@ -133,3 +133,12 @@
   font-size: 12px;
   margin-top: 4px;
 }
+.column-items .error-message {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-55%);
+  color: red;
+  font-size: 14px;
+  pointer-events: none;
+}
