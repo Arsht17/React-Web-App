@@ -1,0 +1,25 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 814px;
+  padding: 16px;
+  margin-left: 8px;
+
+  h4 {
+    letter-spacing: 2.4px;
+  }
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.column-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}

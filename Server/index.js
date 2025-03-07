@@ -13,7 +13,7 @@ const boards = [
   {
     id: "1",
     name: "developers",
-    columns: [{ id: 1, name: "to do" }],
+    columns: [{ id: 1, name: "To Do" }],
   },
   {
     id: "2",
@@ -65,6 +65,21 @@ app.post("/api/boards", (req, res) => {
   const newBoard = { ...board, id };
   boards.push(newBoard); // update db
   res.json(newBoard);
+});
+
+// Create a new column inside a board
+app.post("/api/boards/:boardId/columns", (req, res) => {
+  const { boardId } = req.params;
+  const { column } = req.body;
+  // Find the board by ID
+  const board = boards.find((b) => b.id === boardId);
+  if (!board) {
+    return res.status(404).json({ message: "Board not found" });
+  }
+  // Generate column ID
+  const newColumn = { id: crypto.randomUUID(), ...column, tasks: [] }; // Ensure tasks array exists
+  board.columns.push(newColumn);
+  res.json(newColumn); // Return created column
 });
 
 app.listen(4000, () => {

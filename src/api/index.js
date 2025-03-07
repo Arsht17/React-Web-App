@@ -40,6 +40,12 @@ export const Api = {
   },
 
   // Columns API
+  getColumns(boardId) {
+    return request({
+      method: "GET",
+      param: `${boardId}/columns`,
+    });
+  },
   createColumn(boardId, column) {
     return request({
       method: "POST",

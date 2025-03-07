@@ -24,4 +24,6 @@ export const columnsSlice = createSlice({
     },
   },
 });
+export const { setColumns, addColumn, editColumn, deleteColumn } =
+  columnsSlice.actions;
 export default columnsSlice.reducer;

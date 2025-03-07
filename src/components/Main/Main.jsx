@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import "./Main.css";
 import { boardsSlice } from "../../store";
 import { useParams } from "wouter";
+import Columns from "../Columns/Columns";
 
 export function Main({ openAddNewColumn }) {
   const appContext = useAppContext();
@@ -22,12 +23,12 @@ export function Main({ openAddNewColumn }) {
 
   return (
     <div className={`Main`}>
-      <h2>{boardName}</h2>
-      <div>
+      {/* <h2>{boardName}</h2> */}
+      <div className="columns-container">
         {!isEmptyState &&
-          columns.map((column) => {
-            return <div key={column.id}>{column.name}</div>;
-          })}
+          columns.map((column, index) => (
+            <Columns key={column.id} column={column} index={index} />
+          ))}
       </div>
       {isEmptyState && (
         <div className="center">

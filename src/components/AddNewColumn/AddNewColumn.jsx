@@ -1,8 +1,12 @@
 import "./AddNewColumn.scss";
 import Button from "../Button/Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { columnsSlice } from "../../store";
+import { Api } from "../../api";
 
-export function AddNewColumn({ onClose }) {
+export function AddNewColumn({ onClose, boardId }) {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     name: "",
     columns: [{ id: crypto.randomUUID(), name: "", isError: false }], // Start with one column
@@ -55,11 +59,15 @@ export function AddNewColumn({ onClose }) {
     console.log("removed column");
   }
 
-  function CreateNewColumn() {
+  async function CreateNewColumn() {
+    if (!boardId) {
+      console.error("Error: boardId is undefined");
+      return;
+    }
+
     const hasEmptyColumn = form.columns.some(
       (column) => column.name.trim() === ""
     );
-
     if (hasEmptyColumn) {
       setForm((prevForm) => ({
         ...prevForm,
@@ -71,10 +79,27 @@ export function AddNewColumn({ onClose }) {
       return;
     }
 
-    console.log("Creating new column");
-    onClose?.();
+    try {
+      const newColumns = [];
+      for (const column of form.columns) {
+        if (column.name.trim() !== "") {
+          const newColumn = await Api.createColumn(boardId, column);
+          dispatch(columnsSlice.actions.addColumn(newColumn));
+        }
+      }
+      dispatch(
+        boardsSlice.actions.editBoard({
+          id: boardId,
+          columns: [...selectedBoard.columns, ...newColumns],
+        })
+      );
+      console.log("Creating new column");
+      onClose?.();
+    } catch (error) {
+      console.error("Error creating columns:", error);
+    }
   }
-  console.log("form", form);
+
   return (
     <div className="AddNewColumnModal" onClick={onClose}>
       <div

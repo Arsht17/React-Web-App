@@ -1,5 +1,6 @@
 import { useAppContext } from "../../contexts/AppContext";
 import { boardsSlice } from "../../store";
+import { columnsSlice } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import "./BoardFormModal.scss";
 import { useState } from "react";
@@ -84,22 +85,33 @@ export function BoardFormModal({ close, boardToEdit }) {
 
   async function save() {
     if (form.name.trim() === "") {
-      setError(true); //  Show error message
+      setError(true); // Show error message
       return;
     }
-    console.log("boardToEdit : ", boardToEdit);
+    console.log("boardToEdit:", boardToEdit);
+
+    let _board;
+
     if (boardToEdit) {
-      const _board = await Api.editBoard(form);
-      console.log("_board : ", _board);
+      _board = await Api.editBoard(form);
       dispatch(boardsSlice.actions.editBoard(_board));
     } else {
-      const _board = await Api.createBoard(form);
-      console.log("_board : ", _board);
+      _board = await Api.createBoard(form); // Create board first
       dispatch(boardsSlice.actions.addBoard(_board));
     }
+
+    // Ensure the board ID exists
+    if (_board.id) {
+      for (const column of form.columns) {
+        if (column.name.trim() !== "") {
+          const newColumn = await Api.createColumn(_board.id, column);
+          dispatch(columnsSlice.actions.addColumn(newColumn));
+        }
+      }
+    }
+
     close?.();
   }
-
   const title = boardToEdit ? "Edit Board" : "Add new Board";
   const actionButton = boardToEdit ? "Save Changes" : "Create new Board";
   const nameLabel = boardToEdit ? "Board Name" : "Name";
