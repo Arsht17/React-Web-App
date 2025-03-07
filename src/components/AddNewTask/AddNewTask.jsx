@@ -13,16 +13,27 @@ const placeholderTexts = [
   "e.g. Take a short walk",
 ];
 
-export function AddNewTask({ close }) {
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    status: "Todo", // Default status
-    subtasks: [
-      { id: crypto.randomUUID(), name: "", isError: false },
-      { id: crypto.randomUUID(), name: "", isError: false },
-    ], // Ensure subtasks is initialized
-  });
+export function AddNewTask({ close, taskToEdit }) {
+  const [form, setForm] = useState(
+    taskToEdit
+      ? {
+          ...taskToEdit, // Load existing task
+          subtasks: taskToEdit.subtasks.map((subtask) => ({
+            ...subtask,
+            isError: false, // Ensure error is handled
+          })),
+        }
+      : {
+          title: "",
+          description: "",
+          status: "Todo", // Default status
+          subtasks: [
+            { id: crypto.randomUUID(), name: "", isError: false },
+            { id: crypto.randomUUID(), name: "", isError: false },
+          ],
+        }
+  );
+
   const [error, setErrors] = useState({ title: false, description: false });
 
   // Derived state for validation
@@ -30,6 +41,8 @@ export function AddNewTask({ close }) {
   const isValidDescription = !!form.description.length;
   const hasQInDescription = form.description.includes("?");
   const hasQInTitle = form.title.includes("?");
+  const Header = taskToEdit ? "Edit Task" : "Add New Task";
+  const actionButton = taskToEdit ? "Save Changes" : "Create Task";
 
   console.log("form", form);
 
@@ -137,7 +150,7 @@ export function AddNewTask({ close }) {
         <span className="AddNewTask-close" onClick={close}>
           &times;
         </span>
-        <h2 className="AddNewTask-title">Add New Task</h2>
+        <h2 className="AddNewTask-title">{Header}</h2>
         <form
           onSubmit={(event) => {
             event.preventDefault(); // Prevent form submission
@@ -301,7 +314,7 @@ export function AddNewTask({ close }) {
               opacity="null"
               onClick={createTask}
             >
-              Create Task
+              {actionButton}
             </Button>
           </div>
         </form>
