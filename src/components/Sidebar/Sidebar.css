@@ -31,7 +31,6 @@
   margin-left: -32px;
   padding-left: 48px;
   gap: 16px;
-  transition: background 0.2s ease, color 0.2s ease;
 }
 .create-new-board:hover {
   background: var(--board-hover);
