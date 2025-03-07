@@ -18,3 +18,9 @@
   line-height: 18px Line;
   font-weight: bold;
 }
+.columns-container {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
