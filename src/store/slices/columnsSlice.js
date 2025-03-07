@@ -15,6 +15,7 @@ export const columnsSlice = createSlice({
     editColumn: (state, action) => {
       const index = state.columns.findIndex((c) => c.id === action.payload.id);
       if (index !== -1) {
+        // not found
         state.columns[index] = action.payload;
       }
     },

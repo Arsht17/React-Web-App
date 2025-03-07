@@ -15,7 +15,7 @@ async function request({ method = "GET", body, param } = {}) {
   const data = await res.json();
   return data;
 }
-
+// Boards API
 export const Api = {
   getBoards() {
     return request();
@@ -36,6 +36,28 @@ export const Api = {
     return request({
       method: "PUT",
       body: { board },
+    });
+  },
+
+  // Columns API
+  createColumn(boardId, column) {
+    return request({
+      method: "POST",
+      body: { column },
+      param: `${boardId}/columns`,
+    });
+  },
+  deleteColumn(boardId, columnId) {
+    return request({
+      method: "DELETE",
+      param: `${boardId}/columns/${columnId}`,
+    });
+  },
+  editColumn(boardId, column) {
+    return request({
+      method: "PUT",
+      body: { column },
+      param: `${boardId}/columns/${column.id}`,
     });
   },
 };
