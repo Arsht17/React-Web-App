@@ -28,6 +28,34 @@ export function AppContextProvider({ children }) {
     dispatch(boardsSlice.actions.addBoard(newBoard));
   }
 
+  async function createColumn(boardId, column) {
+    const res = await fetch(
+      "http://localhost:4000/api/boards/${boardId}/columns",
+      {
+        body: JSON.stringify(column),
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+    const newColumn = await res.json();
+
+    setBoards((prevBoards) =>
+      prevBoards.map((board) =>
+        board.id === boardId
+          ? { ...board, columns: [...board.columns, newColumn] }
+          : board
+      )
+    );
+    dispatch(
+      boardsSlice.actions.editBoard({
+        id: boardId,
+        columns: [...selectedBoard.columns, newColumn],
+      })
+    );
+  }
+
   const selectedBoard = boards.find((board) => board.id === selectedBoardId);
   const data = {
     boards,
@@ -36,6 +64,7 @@ export function AppContextProvider({ children }) {
     setBoards,
     setSelectedBoardId,
     createBoard,
+    createColumn,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
