@@ -27,8 +27,8 @@ export function Main({ openAddNewColumn }) {
       <div className="columns-container">
         {!isEmptyState &&
           selectedBoard?.columns?.length > 0 &&
-          selectedBoard.columns.map((column) => (
-            <Columns key={column.id || crypto.randomUUID()} column={column} />
+          selectedBoard.columns.map((column, index) => (
+            <Columns key={column.id || index} column={column} index={index} />
           ))}
       </div>
       {isEmptyState && (

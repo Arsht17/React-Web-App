@@ -85,11 +85,13 @@ export function AddNewColumn({ onClose, boardId, selectedBoard }) {
 
       for (const column of form.columns) {
         if (column.name.trim() !== "") {
-          const newColumn = await Api.createColumn(boardIdToUse, {
-            ...column,
+          // Ensure unique ID for each column before sending to API
+          const newColumn = await Api.createColumn(boardId, {
             id: crypto.randomUUID(),
+            name: column.name,
+            tasks: [],
           });
-          newColumns.push(newColumn); // Collect new columns
+          newColumns.push(newColumn);
         }
       }
 
