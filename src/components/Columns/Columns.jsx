@@ -9,8 +9,8 @@ function getRandomColor() {
 function Column({ column, index }) {
   const color =
     index < columnColors.length
-      ? columnColors[index] // Use predefined color for first 3 columns
-      : getRandomColor(); // Assign random color for others
+      ? columnColors[index] // predefined color for first 3 columns
+      : getRandomColor(); // random color for others
 
   return (
     <div className="column">

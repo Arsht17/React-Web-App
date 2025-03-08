@@ -30,6 +30,7 @@ function App() {
   const dispatch = useDispatch();
   const [isAddNewTaskOpen, setIsAddNewTaskOpen] = useState(false);
   const [isAddNewColumnOpen, setIsAddNewColumnOpen] = useState(false);
+  const [selectedBoardForColumn, setSelectedBoardForColumn] = useState(null);
 
   function openModal(board) {
     setIsBoardModalOpen(true);
@@ -48,12 +49,18 @@ function App() {
   function closeAddNewTask() {
     setIsAddNewTaskOpen(false);
   }
-  function openAddNewColumn() {
+  function openAddNewColumn(selectedBoard) {
+    if (!selectedBoard) {
+      console.error("Error: selectedBoard is undefined");
+      return;
+    }
     setIsAddNewColumnOpen(true);
+    setSelectedBoardForColumn(selectedBoard);
   }
 
   function closeAddNewColumn() {
     setIsAddNewColumnOpen(false);
+    setSelectedBoardForColumn(null);
   }
 
   useEffect(() => {
@@ -93,7 +100,13 @@ function App() {
         <BoardFormModal close={closeModal} boardToEdit={boardToEdit} />
       )}
       {isAddNewTaskOpen && <AddNewTask close={closeAddNewTask} />}
-      {isAddNewColumnOpen && <AddNewColumn onClose={closeAddNewColumn} />}
+      {isAddNewColumnOpen && selectedBoardForColumn && (
+        <AddNewColumn
+          onClose={closeAddNewColumn}
+          boardId={selectedBoardForColumn?.id}
+          selectedBoard={selectedBoardForColumn}
+        />
+      )}
     </div>
   );
 }

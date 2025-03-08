@@ -62,7 +62,7 @@ export function AddNewColumn({ onClose, boardId, selectedBoard }) {
   async function CreateNewColumn() {
     const boardIdToUse = boardId || selectedBoard?.id;
 
-    if (!boardIdToUse) {
+    if (!boardId) {
       console.error("Error: boardId is undefined");
       return;
     }
@@ -85,25 +85,22 @@ export function AddNewColumn({ onClose, boardId, selectedBoard }) {
 
       for (const column of form.columns) {
         if (column.name.trim() !== "") {
-          const newColumn = await Api.createColumn(boardId, column);
+          const newColumn = await Api.createColumn(boardIdToUse, {
+            ...column,
+            id: crypto.randomUUID(),
+          });
           newColumns.push(newColumn); // Collect new columns
         }
       }
 
       if (newColumns.length > 0) {
-        dispatch(
-          columnsSlice.actions.setColumns([
-            ...selectedBoard.columns,
-            ...newColumns,
-          ])
-        );
+        // Get the updated board
+        const updatedBoard = {
+          ...selectedBoard,
+          columns: [...selectedBoard.columns, ...newColumns], //Add new columns correctly
+        };
 
-        dispatch(
-          boardsSlice.actions.editBoard({
-            id: boardId,
-            columns: [...selectedBoard.columns, ...newColumns],
-          })
-        );
+        dispatch(boardsSlice.actions.editBoard(updatedBoard)); //Update Redux store
       }
 
       console.log("Creating new column");

@@ -26,8 +26,9 @@ export function Main({ openAddNewColumn }) {
       {/* <h2>{boardName}</h2> */}
       <div className="columns-container">
         {!isEmptyState &&
-          columns.map((column, index) => (
-            <Columns key={column.id} column={column} index={index} />
+          selectedBoard?.columns?.length > 0 &&
+          selectedBoard.columns.map((column) => (
+            <Columns key={column.id || crypto.randomUUID()} column={column} />
           ))}
       </div>
       {isEmptyState && (
@@ -42,7 +43,11 @@ export function Main({ openAddNewColumn }) {
               size="lg"
               opacity=""
               onClick={() => {
-                openAddNewColumn(selectedBoard);
+                if (selectedBoard) {
+                  openAddNewColumn(selectedBoard);
+                } else {
+                  console.error("Error: No board selected");
+                }
               }}
             >
               + Add New Column

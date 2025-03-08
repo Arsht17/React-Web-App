@@ -11,17 +11,17 @@ app.use(express.json({}));
 
 const boards = [
   {
-    id: "1",
+    id: crypto.randomUUID(),
     name: "developers",
     columns: [{ id: 1, name: "To Do" }],
   },
   {
-    id: "2",
+    id: crypto.randomUUID(),
     name: "products",
     columns: [],
   },
   {
-    id: "3",
+    id: crypto.randomUUID(),
     name: "designers",
     columns: [],
   },
@@ -62,7 +62,7 @@ app.put("/api/boards", (req, res) => {
 app.post("/api/boards", (req, res) => {
   const { board } = req.body;
   const id = crypto.randomUUID();
-  const newBoard = { ...board, id };
+  const newBoard = { ...board, id, columns: board.columns || [] };
   boards.push(newBoard); // update db
   res.json(newBoard);
 });
