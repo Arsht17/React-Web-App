@@ -30,7 +30,6 @@ export function BoardFormModal({ close, boardToEdit }) {
 
   function addNewColumn() {
     setForm((prevForm) => {
-      console.log("Adding column");
       const hasEmptyColumn = prevForm.columns.some(
         (column) => column.name.trim() === ""
       );
@@ -52,6 +51,7 @@ export function BoardFormModal({ close, boardToEdit }) {
         columns: [...prevForm.columns, { id: crypto.randomUUID(), name: "" }],
       };
     });
+    console.log("Adding column");
   }
 
   function removeColumn(id) {

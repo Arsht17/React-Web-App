@@ -30,6 +30,18 @@ export function Main({ openAddNewColumn }) {
           selectedBoard.columns.map((column, index) => (
             <Columns key={column.id || index} column={column} index={index} />
           ))}
+        {!isEmptyState && (
+          <button
+            className="New-Column"
+            onClick={() => {
+              if (selectedBoard) {
+                openAddNewColumn(selectedBoard);
+              }
+            }}
+          >
+            + New Column
+          </button>
+        )}
       </div>
       {isEmptyState && (
         <div className="center">

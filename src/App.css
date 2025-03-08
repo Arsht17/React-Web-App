@@ -20,6 +20,7 @@
   --board-hover:#d8d7f1;
   --field-addnewtask-color:white;
   --input-color:black;
+  --newColumn-btn-color:#e9effa;
 }
 :root.dark {
   --main-bg: #20212c;
@@ -40,6 +41,7 @@
   --board-hover:white;
   --field-addnewtask-color:#2B2C37;
   --input-color:white;
+  --newColumn-btn-color: hsl(235, 12%, 19%);
 }
 body {
   margin: 0;
