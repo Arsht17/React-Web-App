@@ -2,6 +2,11 @@
   background-color: var(--main-bg);
   flex-grow: 1;
   color: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-width: 100%;
+  position: relative;
 }
 
 .center {
@@ -22,10 +27,16 @@
   display: flex;
   gap: 24px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding-bottom: 16px;
+  white-space: nowrap;
+  max-width: calc(100vw - 300px);
+  min-width: 100%;
+  position: relative;
 }
 
 .New-Column {
+  flex-shrink: 0;
   position: relative;
   top: 63px;
   width: 280px;
@@ -42,6 +53,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(0, 0, 0, 0.12);
   font-weight: bold;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .New-Column:hover {

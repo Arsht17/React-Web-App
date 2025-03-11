@@ -183,6 +183,7 @@ input:checked + .slider:before {
   border-color: transparent;
   transition-delay: 1s;
   overflow: hidden;
+  z-index: 1001;
 }
 .open-sidebar.hide {
   display: none;
