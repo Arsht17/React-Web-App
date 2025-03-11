@@ -35,6 +35,18 @@
   position: relative;
 }
 
+.columns-container::-webkit-scrollbar {
+  height: 12px; /* Makes scrollbar thicker */
+}
+.columns-container::-webkit-scrollbar-thumb {
+  background: #635fc7;
+  border-radius: 6px; /* Rounds edges */
+}
+.columns-container::-webkit-scrollbar-track {
+  background: var(--scrollbar-main-color);
+  border-radius: 6px;
+}
+
 .New-Column {
   flex-shrink: 0;
   position: relative;
@@ -54,6 +66,7 @@
   font-weight: bold;
   cursor: pointer;
   white-space: nowrap;
+  margin-right: 24px;
 }
 
 .New-Column:hover {

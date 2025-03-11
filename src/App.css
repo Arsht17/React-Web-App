@@ -21,6 +21,7 @@
   --field-addnewtask-color:white;
   --input-color:black;
   --newColumn-btn-color:#e9effa;
+  --scrollbar-main-color:rgba(0, 0, 0, 0.1);
 }
 :root.dark {
   --main-bg: #20212c;
@@ -42,6 +43,7 @@
   --field-addnewtask-color:#2B2C37;
   --input-color:white;
   --newColumn-btn-color: hsl(235, 12%, 19%);
+  --scrollbar-main-color:white;
 }
 body {
   margin: 0;

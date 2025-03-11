@@ -138,7 +138,7 @@ export function BoardFormModal({ close, boardToEdit }) {
           style={{
             height: `${
               481 +
-              Math.max(0, (form.columns.length - 3) * 40) +
+              Math.max(0, (form.columns.length - 3) * 50) +
               (error ? 32 : 0)
             }px`,
           }}
