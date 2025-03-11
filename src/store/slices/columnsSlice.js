@@ -10,7 +10,10 @@ export const columnsSlice = createSlice({
       state.columns = action.payload;
     },
     addColumn: (state, action) => {
-      state.columns.push(action.payload);
+      const exists = state.columns.some((c) => c.id === action.payload.id);
+      if (!exists) {
+        state.columns.push(action.payload);
+      }
     },
     editColumn: (state, action) => {
       const index = state.columns.findIndex((c) => c.id === action.payload.id);

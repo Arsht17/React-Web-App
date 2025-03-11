@@ -136,7 +136,11 @@ export function BoardFormModal({ close, boardToEdit }) {
         <div
           className="EditBoardModal-content"
           style={{
-            height: `${481 + (error ? 32 : 0)}px`,
+            height: `${
+              481 +
+              Math.max(0, (form.columns.length - 3) * 40) +
+              (error ? 32 : 0)
+            }px`,
           }}
         >
           <span className="EditBoardModal-close" onClick={close}>
@@ -201,6 +205,7 @@ export function BoardFormModal({ close, boardToEdit }) {
               onClick={addNewColumn}
               shadow="null"
               opacity="null"
+              disabled={form.columns.length >= 3}
             >
               + Add New Column
             </Button>

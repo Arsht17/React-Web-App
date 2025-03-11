@@ -78,7 +78,7 @@ app.post("/api/boards/:boardId/columns", (req, res) => {
     return res.status(404).json({ message: "Board not found" });
   }
   // Generate column ID
-  const newColumn = { id: crypto.randomUUID(), ...column, tasks: [] }; // Ensure tasks array exists
+  const newColumn = { id: crypto.randomUUID(), ...column, tasks: [] };
   board.columns.push(newColumn);
   res.json(newColumn); // Return created column
 });

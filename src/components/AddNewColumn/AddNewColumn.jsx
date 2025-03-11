@@ -171,6 +171,7 @@ export function AddNewColumn({ onClose, boardId, selectedBoard }) {
             shadow="null"
             opacity="0"
             onClick={AddNewColumn}
+            disabled={form.columns.length >= 3}
           >
             + Add new Column
           </Button>
