@@ -6,6 +6,7 @@ import { columnsSlice } from "./slices/columnsSlice";
 export * from "./slices/themeSlice";
 export * from "./slices/boardsSlice";
 export * from "./slices/columnsSlice";
+
 export const store = configureStore({
   reducer: {
     [themeSlice.name]: themeSlice.reducer,

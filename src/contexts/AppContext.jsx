@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { boardsSlice } from "../store";
+import { tasksSlice } from "../store";
 
 export const AppContext = createContext(null);
 
@@ -55,6 +56,18 @@ export function AppContextProvider({ children }) {
       })
     );
   }
+  async function createTask(columnId, task) {
+    const res = await fetch(
+      "http://localhost:4000/api/columns/${columnId}/tasks",
+      {
+        body: JSON.stringify({ task }),
+        method: "POST",
+        headers: { "content-type": "application/json" },
+      }
+    );
+    const newTask = await res.json();
+    dispatch(tasksSlice.actions.addTask({ columnId, task: newTask }));
+  }
 
   const selectedBoard = boards.find((board) => board.id === selectedBoardId);
   const data = {
@@ -65,6 +78,7 @@ export function AppContextProvider({ children }) {
     setSelectedBoardId,
     createBoard,
     createColumn,
+    createTask,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;

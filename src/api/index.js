@@ -66,4 +66,9 @@ export const Api = {
       param: `${boardId}/columns/${column.id}`,
     });
   },
+  // Tasks API
+  getTask() {},
+  createTask() {},
+  deleteTask() {},
+  editTask() {},
 };
