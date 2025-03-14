@@ -1,5 +1,6 @@
 import "./Columns.scss";
 import { useState, useEffect } from "react";
+import Task from "../Task/Task";
 
 const columnColors = ["#49C4E5", "#8471F2", "#67E2AE"];
 const colorMap = new Map();
@@ -26,7 +27,10 @@ function Column({ column, index }) {
           {column.name} ({column.tasks?.length || 0})
         </h4>
       </div>
-      {/* (tasks) */}
+      <div className="tasks-container">
+        {column.tasks?.length > 0 &&
+          column.tasks.map((task) => <Task key={task.id} task={task} />)}
+      </div>
     </div>
   );
 }

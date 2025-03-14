@@ -66,9 +66,32 @@ export const Api = {
       param: `${boardId}/columns/${column.id}`,
     });
   },
+
   // Tasks API
-  getTask() {},
-  createTask() {},
-  deleteTask() {},
-  editTask() {},
+  getTasks(columnId) {
+    return request({
+      method: "GET",
+      param: `columns/${columnId}/tasks`,
+    });
+  },
+  createTask(columnId, task) {
+    return request({
+      method: "GET",
+      body: { task },
+      param: `columns/${columnId}/tasks`,
+    });
+  },
+  deleteTask(columnId, taskId) {
+    return request({
+      method: "DELETE",
+      param: `columns/${columnId}/tasks/${task.id}`,
+    });
+  },
+  editTask(columnId, task) {
+    return request({
+      method: "PUT",
+      body: { task },
+      param: `columns/${columnId}/tasks/${task.id}`,
+    });
+  },
 };

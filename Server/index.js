@@ -116,7 +116,18 @@ app.put("/api/columns/:columnId/tasks/:taskId", (req, res) => {
 
   res.json(column.tasks[taskIndex]);
 });
-//delte Task
+
+//delete Task
+app.delete("/api/columns/:columnId/tasks/:taskId", (req, res) => {
+  const { columnId, taskId } = req.params;
+  // Find the column by ID
+  const column = boards
+    .flatMap((b) => b.columns)
+    .find((c) => c.id === columnId);
+  if (!column) return res.status(404).json({ message: "Column not found" });
+  column.tasks = column.tasks.filter((t) => t.id == !taskId);
+  res.json({ message: "Task deleted" });
+});
 
 app.listen(4000, () => {
   console.log("server run on port:", 4000);
