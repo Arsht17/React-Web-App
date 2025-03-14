@@ -11,11 +11,12 @@ export const tasksSlice = createSlice({
     },
     addTask: (state, action) => {
       const { columnId, task } = action.payload;
-      const column = state.tasks.find((c) => c.id === columnId);
-      if (column) {
-        column.tasks.push(task);
+      if (!state.tasks[columnId]) {
+        state.tasks[columnId] = [];
       }
+      state.tasks[columnId].push(task);
     },
+
     editTask: (state, action) => {
       const { columnId, task } = action.payload;
       const column = state.tasks.find((c) => c.id === columnId);

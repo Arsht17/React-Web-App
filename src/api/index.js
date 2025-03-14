@@ -76,7 +76,7 @@ export const Api = {
   },
   createTask(columnId, task) {
     return request({
-      method: "GET",
+      method: "POST",
       body: { task },
       param: `columns/${columnId}/tasks`,
     });
@@ -84,7 +84,7 @@ export const Api = {
   deleteTask(columnId, taskId) {
     return request({
       method: "DELETE",
-      param: `columns/${columnId}/tasks/${task.id}`,
+      param: `columns/${columnId}/tasks/${taskId}`,
     });
   },
   editTask(columnId, task) {

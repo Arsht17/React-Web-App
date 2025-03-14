@@ -3,6 +3,9 @@ import "./AddNewTask.scss";
 import Button from "../Button/Button";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { useDispatch, useSelector } from "react-redux";
+import { tasksSlice } from "../../store";
+import { Api } from "../../api";
 
 const placeholderTexts = [
   "e.g. Drink coffee & smile",
@@ -13,7 +16,10 @@ const placeholderTexts = [
   "e.g. Take a short walk",
 ];
 
-export function AddNewTask({ close, taskToEdit }) {
+export function AddNewTask({ close, taskToEdit, columnId }) {
+  const dispatch = useDispatch();
+  const selectedBoard = useSelector((state) => state.boards.selectedBoard);
+
   const [form, setForm] = useState(
     taskToEdit
       ? {
@@ -27,6 +33,7 @@ export function AddNewTask({ close, taskToEdit }) {
           title: "",
           description: "",
           status: "Todo", // Default status
+          columnId: columnId, // Ensure task is linked to a column
           subtasks: [
             { id: crypto.randomUUID(), name: "", isError: false },
             { id: crypto.randomUUID(), name: "", isError: false },
@@ -46,7 +53,7 @@ export function AddNewTask({ close, taskToEdit }) {
 
   console.log("form", form);
 
-  function createTask() {
+  async function createTask() {
     let newErrors = {
       title: form.title.trim() === "",
       description: form.description.trim() === "",
@@ -57,9 +64,28 @@ export function AddNewTask({ close, taskToEdit }) {
     if (newErrors.title || newErrors.description) {
       return; // Stop if there are errors
     }
+    try {
+      const newTask = {
+        id: crypto.randomUUID(),
+        name: form.title,
+        description: form.description,
+        status: form.status,
+        subtasks: form.subtasks,
+      };
+      // Send task to API and get response
+      const createdTask = await Api.createTask(
+        selectedBoard.id,
+        columnId,
+        newTask
+      );
+      // Dispatch action to update Redux store
+      dispatch(tasksSlice.actions.addTask({ columnId, task: createdTask }));
 
-    console.log("Creating task:", form);
-    close?.();
+      console.log("Task created:", createdTask);
+      close?.();
+    } catch (error) {
+      console.error("Error creating task:", error);
+    }
   }
 
   function editSubTask(id, newName) {

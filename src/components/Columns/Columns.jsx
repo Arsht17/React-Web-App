@@ -28,8 +28,9 @@ function Column({ column, index }) {
         </h4>
       </div>
       <div className="tasks-container">
-        {column.tasks?.length > 0 &&
-          column.tasks.map((task) => <Task key={task.id} task={task} />)}
+        {column.tasks?.map((task) => (
+          <Task key={task.id} task={task} />
+        ))}
       </div>
     </div>
   );

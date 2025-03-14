@@ -83,10 +83,24 @@ app.post("/api/boards/:boardId/columns", (req, res) => {
   res.json(newColumn); // Return created column
 });
 
+// Get all tasks in a specific column
+app.get("/api/columns/:columnId/tasks", (req, res) => {
+  const { columnId } = req.params;
+  const column = boards
+    .flatMap((b) => b.columns)
+    .find((c) => c.id === columnId);
+  if (!column) return res.status(404).json({ message: "Column not found" });
+
+  res.json(column.tasks || []);
+});
+
 //Create Task
-app.post("/api/columns/:columnId/tasks", (req, res) => {
-  const { columnId } = res.params;
+app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
+  const { boardId, columnId } = req.params;
   const { task } = req.body;
+  // Find the board by ID
+  const board = boards.find((b) => b.id === boardId);
+  if (!board) return res.status(404).json({ message: "Board not found" });
   // Find the column by ID
   const column = boards
     .flatMap((b) => b.columns)
@@ -125,7 +139,7 @@ app.delete("/api/columns/:columnId/tasks/:taskId", (req, res) => {
     .flatMap((b) => b.columns)
     .find((c) => c.id === columnId);
   if (!column) return res.status(404).json({ message: "Column not found" });
-  column.tasks = column.tasks.filter((t) => t.id == !taskId);
+  column.tasks = column.tasks.filter((t) => t.id !== taskId);
   res.json({ message: "Task deleted" });
 });
 
