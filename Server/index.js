@@ -95,7 +95,7 @@ app.get("/api/columns/:columnId/tasks", (req, res) => {
 });
 
 //Create Task
-app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
+app.post("/api/columns/:columnId/tasks", (req, res) => {
   const { boardId, columnId } = req.params;
   const { task } = req.body;
   // Find the board by ID
@@ -105,6 +105,7 @@ app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
   const column = boards
     .flatMap((b) => b.columns)
     .find((c) => c.id === columnId);
+  // If column is not found
   if (!column) return res.status(404).json({ message: "Column not found" });
   //update db
   const newTask = { id: crypto.randomUUID(), ...task, subtasks: [] };

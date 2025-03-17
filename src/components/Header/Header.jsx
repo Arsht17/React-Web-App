@@ -75,7 +75,14 @@ export function Header({ openEditBoardModal, openAddNewTask }) {
             shadow="null"
             width="scope_2"
             opacity="0"
-            onClick={openAddNewTask}
+            onClick={() => {
+              if (selectedBoard && selectedBoard.columns.length > 0) {
+                const firstColumnId = selectedBoard.columns[0].id; // Get the first column
+                openAddNewTask(firstColumnId); // Pass column ID
+              } else {
+                console.error("No columns available to add tasks.");
+              }
+            }}
           >
             + Add New Task
           </Button>

@@ -72,12 +72,12 @@ export function AddNewTask({ close, taskToEdit, columnId }) {
         status: form.status,
         subtasks: form.subtasks,
       };
+      if (!columnId) {
+        console.error("Error: columnId is undefined");
+        return;
+      }
       // Send task to API and get response
-      const createdTask = await Api.createTask(
-        selectedBoard.id,
-        columnId,
-        newTask
-      );
+      const createdTask = await Api.createTask(columnId, newTask);
       // Dispatch action to update Redux store
       dispatch(tasksSlice.actions.addTask({ columnId, task: createdTask }));
 
