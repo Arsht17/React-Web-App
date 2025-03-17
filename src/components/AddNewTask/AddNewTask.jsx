@@ -16,9 +16,11 @@ const placeholderTexts = [
   "e.g. Take a short walk",
 ];
 
-export function AddNewTask({ close, taskToEdit, columnId }) {
+export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
   const dispatch = useDispatch();
-  const selectedBoard = useSelector((state) => state.boards.selectedBoard);
+  const selectedBoard = useSelector((state) =>
+    state.boards.boards.find((b) => b.id === boardId)
+  );
 
   const [form, setForm] = useState(
     taskToEdit
@@ -54,6 +56,11 @@ export function AddNewTask({ close, taskToEdit, columnId }) {
   console.log("form", form);
 
   async function createTask() {
+    if (!columnId || !selectedBoard || !selectedBoard.id) {
+      console.error("Error: columnId or boardId is undefined");
+      return;
+    }
+
     let newErrors = {
       title: form.title.trim() === "",
       description: form.description.trim() === "",
@@ -72,16 +79,8 @@ export function AddNewTask({ close, taskToEdit, columnId }) {
         status: form.status,
         subtasks: form.subtasks,
       };
-      if (!columnId || !selectedBoard.id) {
-        console.error("Error: columnId or boardId is undefined");
-        return;
-      }
       // Send task to API and get response
-      const createdTask = await Api.createTask(
-        selectedBoard.id,
-        columnId,
-        newTask
-      );
+      const createdTask = await Api.createTask(boardId, columnId, newTask);
       // Dispatch action to update Redux store
       dispatch(tasksSlice.actions.addTask({ columnId, task: createdTask }));
 

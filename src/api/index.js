@@ -1,6 +1,4 @@
 async function request({ method = "GET", body, param } = {}) {
-  console.log("body : ", body);
-  console.log("method : ", method);
   // update server
   const res = await fetch(
     `http://localhost:4000/api/boards${param ? `/${param}` : ""}`,
@@ -71,31 +69,27 @@ export const Api = {
   getTasks(boardId, columnId) {
     return request({
       method: "GET",
-      param: `${boardId}columns/${columnId}/tasks`,
-      base: "boards",
+      param: `${boardId}/columns/${columnId}/tasks`,
     });
   },
   createTask(boardId, columnId, task) {
     return request({
       method: "POST",
       body: { task },
-      param: `${boardId}columns/${columnId}/tasks`,
-      base: "boards",
+      param: `${boardId}/columns/${columnId}/tasks`,
     });
   },
   deleteTask(boardId, columnId, taskId) {
     return request({
       method: "DELETE",
-      param: `${boardId}columns/${columnId}/tasks/${taskId}`,
-      base: "boards",
+      param: `${boardId}/columns/${columnId}/tasks/${taskId}`,
     });
   },
   editTask(boardId, columnId, task) {
     return request({
       method: "PUT",
       body: { task },
-      param: `${boardId}columns/${columnId}/tasks/${task.id}`,
-      base: "boards",
+      param: `${boardId}/columns/${columnId}/tasks/${task.id}`,
     });
   },
 };

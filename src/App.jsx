@@ -32,7 +32,7 @@ function App() {
   const [isAddNewColumnOpen, setIsAddNewColumnOpen] = useState(false);
   const [selectedBoardForColumn, setSelectedBoardForColumn] = useState(null);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
-  const { setSelectedBoardId } = useAppContext();
+  const { selectedBoardId, setSelectedBoardId } = useAppContext();
 
   function openModal(board) {
     setIsBoardModalOpen(true);
