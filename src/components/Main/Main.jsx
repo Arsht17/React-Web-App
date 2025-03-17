@@ -28,7 +28,12 @@ export function Main({ openAddNewColumn }) {
         {!isEmptyState &&
           selectedBoard?.columns?.length > 0 &&
           selectedBoard.columns.map((column, index) => (
-            <Columns key={column.id || index} column={column} index={index} />
+            <Columns
+              key={column.id}
+              column={column}
+              index={index}
+              boardId={selectedBoard.id}
+            />
           ))}
         {!isEmptyState && (
           <button

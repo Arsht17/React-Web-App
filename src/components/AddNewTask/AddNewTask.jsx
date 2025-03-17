@@ -82,7 +82,9 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
       // Send task to API and get response
       const createdTask = await Api.createTask(boardId, columnId, newTask);
       // Dispatch action to update Redux store
-      dispatch(tasksSlice.actions.addTask({ columnId, task: createdTask }));
+      dispatch(
+        tasksSlice.actions.addTask({ boardId, columnId, task: createdTask })
+      );
 
       console.log("Task created:", createdTask);
       close?.();
@@ -183,6 +185,7 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
         <form
           onSubmit={(event) => {
             event.preventDefault(); // Prevent form submission
+            event.stopPropagation(); //Prevent event bubbling
             createTask();
           }}
         >
