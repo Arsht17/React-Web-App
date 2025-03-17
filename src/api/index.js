@@ -68,30 +68,34 @@ export const Api = {
   },
 
   // Tasks API
-  getTasks(columnId) {
+  getTasks(boardId, columnId) {
     return request({
       method: "GET",
-      param: `columns/${columnId}/tasks`,
+      param: `${boardId}columns/${columnId}/tasks`,
+      base: "boards",
     });
   },
-  createTask(columnId, task) {
+  createTask(boardId, columnId, task) {
     return request({
       method: "POST",
       body: { task },
-      param: `columns/${columnId}/tasks`,
+      param: `${boardId}columns/${columnId}/tasks`,
+      base: "boards",
     });
   },
-  deleteTask(columnId, taskId) {
+  deleteTask(boardId, columnId, taskId) {
     return request({
       method: "DELETE",
-      param: `columns/${columnId}/tasks/${taskId}`,
+      param: `${boardId}columns/${columnId}/tasks/${taskId}`,
+      base: "boards",
     });
   },
-  editTask(columnId, task) {
+  editTask(boardId, columnId, task) {
     return request({
       method: "PUT",
       body: { task },
-      param: `columns/${columnId}/tasks/${task.id}`,
+      param: `${boardId}columns/${columnId}/tasks/${task.id}`,
+      base: "boards",
     });
   },
 };

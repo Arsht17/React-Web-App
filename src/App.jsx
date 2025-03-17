@@ -32,6 +32,7 @@ function App() {
   const [isAddNewColumnOpen, setIsAddNewColumnOpen] = useState(false);
   const [selectedBoardForColumn, setSelectedBoardForColumn] = useState(null);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const { setSelectedBoardId } = useAppContext();
 
   function openModal(board) {
     setIsBoardModalOpen(true);
@@ -43,9 +44,10 @@ function App() {
     setBoardToEdit(null);
   }
 
-  function openAddNewTask(columnId) {
+  function openAddNewTask(columnId, boardId) {
     setIsAddNewTaskOpen(true);
     setSelectedColumnId(columnId);
+    setSelectedBoardId(boardId);
   }
 
   function closeAddNewTask() {
@@ -101,8 +103,12 @@ function App() {
       {isBoardModalOpen && (
         <BoardFormModal close={closeModal} boardToEdit={boardToEdit} />
       )}
-      {isAddNewTaskOpen && selectedColumnId && (
-        <AddNewTask close={closeAddNewTask} columnId={selectedColumnId} />
+      {isAddNewTaskOpen && selectedColumnId && selectedBoardId && (
+        <AddNewTask
+          close={closeAddNewTask}
+          columnId={selectedColumnId}
+          boardId={selectedBoardId}
+        />
       )}
       {isAddNewColumnOpen && selectedBoardForColumn && (
         <AddNewColumn

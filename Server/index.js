@@ -19,12 +19,12 @@ const boards = [
   {
     id: crypto.randomUUID(),
     name: "products",
-    columns: [{ tasks: [] }],
+    columns: [],
   },
   {
     id: crypto.randomUUID(),
     name: "designers",
-    columns: [{ tasks: [] }],
+    columns: [],
   },
 ];
 
@@ -83,66 +83,87 @@ app.post("/api/boards/:boardId/columns", (req, res) => {
   res.json(newColumn); // Return created column
 });
 
-// Get all tasks in a specific column
-app.get("/api/columns/:columnId/tasks", (req, res) => {
-  const { columnId } = req.params;
-  const column = boards
-    .flatMap((b) => b.columns)
-    .find((c) => c.id === columnId);
+// Get all tasks in a specific column of a board
+app.get("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
+  const { boardId, columnId } = req.params;
+
+  // Find the board
+  const board = boards.find((b) => b.id === boardId);
+  if (!board) return res.status(404).json({ message: "Board not found" });
+
+  // Find the column inside the board
+  const column = board.columns.find((c) => c.id === columnId);
   if (!column) return res.status(404).json({ message: "Column not found" });
 
-  res.json(column.tasks || []);
+  res.json(column.tasks || []); // Return tasks
 });
 
 //Create Task
-app.post("/api/columns/:columnId/tasks", (req, res) => {
-  const { boardId, columnId } = req.params;
-  const { task } = req.body;
-  // Find the board by ID
+app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
+  const { boardId, columnId } = req.params; // Extract columnId from request
+
+  const { task } = req.body; // Get task data
+  // Find the board
   const board = boards.find((b) => b.id === boardId);
   if (!board) return res.status(404).json({ message: "Board not found" });
-  // Find the column by ID
-  const column = boards
-    .flatMap((b) => b.columns)
-    .find((c) => c.id === columnId);
-  // If column is not found
+
+  // Find the column inside the board
+  const column = board.columns.find((c) => c.id === columnId);
   if (!column) return res.status(404).json({ message: "Column not found" });
-  //update db
+
+  // Create a new task object with a unique ID
   const newTask = { id: crypto.randomUUID(), ...task, subtasks: [] };
+
+  // Add the new task to the column
   column.tasks.push(newTask);
+
   res.json(newTask);
 });
 
-//  Edit Task
-app.put("/api/columns/:columnId/tasks/:taskId", (req, res) => {
-  const { columnId, taskId } = req.params;
-  const { task } = req.body;
-  // Find the column by ID
-  const column = boards
-    .flatMap((b) => b.columns)
-    .find((c) => c.id === columnId);
+// Edit Task
+app.put("/api/boards/:boardId/columns/:columnId/tasks/:taskId", (req, res) => {
+  const { boardId, columnId, taskId } = req.params;
+  const { task } = req.body; // Get task data
+
+  // Find the board
+  const board = boards.find((b) => b.id === boardId);
+  if (!board) return res.status(404).json({ message: "Board not found" });
+
+  // Find the column inside the board
+  const column = board.columns.find((c) => c.id === columnId);
   if (!column) return res.status(404).json({ message: "Column not found" });
+
   // Find the task index
   const taskIndex = column.tasks.findIndex((t) => t.id === taskId);
   if (taskIndex === -1)
     return res.status(404).json({ message: "Task not found" });
+
   // Update the task
   column.tasks[taskIndex] = { ...column.tasks[taskIndex], ...task };
 
-  res.json(column.tasks[taskIndex]);
+  res.json(column.tasks[taskIndex]); // Return the updated task
 });
 
-//delete Task
-app.delete("/api/columns/:columnId/tasks/:taskId", (req, res) => {
-  const { columnId, taskId } = req.params;
-  // Find the column by ID
-  const column = boards
-    .flatMap((b) => b.columns)
-    .find((c) => c.id === columnId);
-  if (!column) return res.status(404).json({ message: "Column not found" });
-  column.tasks = column.tasks.filter((t) => t.id !== taskId);
-  res.json({ message: "Task deleted" });
-});
+/// Delete Task
+app.delete(
+  "/api/boards/:boardId/columns/:columnId/tasks/:taskId",
+  (req, res) => {
+    const { boardId, columnId, taskId } = req.params;
+
+    // Find the board
+    const board = boards.find((b) => b.id === boardId);
+    if (!board) return res.status(404).json({ message: "Board not found" });
+
+    // Find the column
+    const column = board.columns.find((c) => c.id === columnId);
+    if (!column) return res.status(404).json({ message: "Column not found" });
+
+    // Remove the task from the column
+    column.tasks = column.tasks.filter((t) => t.id !== taskId);
+
+    res.json({ message: "Task deleted" });
+  }
+);
 
 app.listen(4000, () => {
   console.log("server run on port:", 4000);

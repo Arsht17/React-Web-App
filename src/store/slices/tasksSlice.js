@@ -3,11 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState: {
-    tasks: [],
+    tasks: {},
   },
   reducers: {
     setTasks: (state, action) => {
-      state.tasks = action.payload;
+      const { columnId, tasks } = action.payload;
+      state.tasks[columnId] = tasks;
     },
     addTask: (state, action) => {
       const { columnId, task } = action.payload;
@@ -19,20 +20,20 @@ export const tasksSlice = createSlice({
 
     editTask: (state, action) => {
       const { columnId, task } = action.payload;
-      const column = state.tasks.find((c) => c.id === columnId);
-      if (column) {
-        const index = column.tasks.findIndex((t) => t.id === task.id);
-        if (index !== -1) {
-          column.tasks[index] = task;
-        }
+      if (!state.tasks[columnId]) return;
+
+      const index = state.tasks[columnId].findIndex((t) => t.id === task.id);
+      if (index !== -1) {
+        state.tasks[columnId][index] = task;
       }
     },
     deleteTask: (state, action) => {
       const { columnId, taskId } = action.payload;
-      const column = state.tasks.find((c) => c.id === columnId);
-      if (column) {
-        column.tasks = column.tasks.filter((t) => t.id !== taskId);
-      }
+      if (!state.tasks[columnId]) return;
+
+      state.tasks[columnId] = state.tasks[columnId].filter(
+        (t) => t.id !== taskId
+      );
     },
   },
 });
