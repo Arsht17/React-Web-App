@@ -22,7 +22,14 @@ export const tasksSlice = createSlice({
       if (!state.tasks[boardId][columnId]) {
         state.tasks[boardId][columnId] = [];
       }
-      state.tasks[boardId][columnId].push(task);
+      // Check if task already exists
+      const existingTaskIndex = state.tasks[boardId][columnId].findIndex(
+        (t) => t.id === task.id
+      );
+
+      if (existingTaskIndex === -1) {
+        state.tasks[boardId][columnId].push(task);
+      }
     },
 
     editTask: (state, action) => {

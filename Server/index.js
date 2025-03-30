@@ -112,12 +112,16 @@ app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
   if (!column) return res.status(404).json({ message: "Column not found" });
 
   // Create a new task object with a unique ID
-  const newTask = { id: crypto.randomUUID(), ...task, subtasks: [] };
+  const newTask = {
+    id: task.id || crypto.randomUUID(),
+    ...task,
+    subtasks: task.subtasks || [],
+  };
 
   // Add the new task to the column
   column.tasks.push(newTask);
 
-  res.json(newTask);
+  res.json(column.tasks);
 });
 
 // Edit Task

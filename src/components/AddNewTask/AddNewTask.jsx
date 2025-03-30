@@ -73,17 +73,18 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
     }
     try {
       const newTask = {
-        id: crypto.randomUUID(),
         name: form.title,
         description: form.description,
         status: form.status,
         subtasks: form.subtasks,
       };
-      // Send task to API and get response
+
+      // Create task via API and get the created task
       const createdTask = await Api.createTask(boardId, columnId, newTask);
-      // Dispatch action to update Redux store
+
+      // Dispatch action with the task returned from the API
       dispatch(
-        tasksSlice.actions.addTask({ boardId, columnId, task: createdTask })
+        tasksSlice.actions.setTasks({ boardId, columnId, task: createdTask })
       );
 
       console.log("Task created:", createdTask);
