@@ -84,7 +84,7 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
 
       // Dispatch action with the task returned from the API
       dispatch(
-        tasksSlice.actions.setTasks({ boardId, columnId, task: createdTask })
+        tasksSlice.actions.addTask({ boardId, columnId, task: createdTask })
       );
 
       console.log("Task created:", createdTask);

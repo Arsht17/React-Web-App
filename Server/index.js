@@ -121,7 +121,7 @@ app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
   // Add the new task to the column
   column.tasks.push(newTask);
 
-  res.json(column.tasks);
+  res.json(newTask);
 });
 
 // Edit Task
