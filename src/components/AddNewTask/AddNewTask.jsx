@@ -16,7 +16,7 @@ const placeholderTexts = [
   "e.g. Take a short walk",
 ];
 
-export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
+export function AddNewTask({ close, taskToEdit, boardId }) {
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const selectedBoard = useSelector((state) =>
