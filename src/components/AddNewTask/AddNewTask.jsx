@@ -61,7 +61,7 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
       return;
     }
 
-    let newErrors = {
+    const newErrors = {
       title: form.title.trim() === "",
       description: form.description.trim() === "",
     };
@@ -71,14 +71,14 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
     if (newErrors.title || newErrors.description) {
       return; // Stop if there are errors
     }
-    try {
-      const newTask = {
-        name: form.title,
-        description: form.description,
-        status: form.status,
-        subtasks: form.subtasks,
-      };
 
+    const newTask = {
+      name: form.title,
+      description: form.description,
+      status: form.status,
+      subtasks: form.subtasks,
+    };
+    try {
       // Create task via API and get the created task
       const createdTask = await Api.createTask(boardId, columnId, newTask);
 
