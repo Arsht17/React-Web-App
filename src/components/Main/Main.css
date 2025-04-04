@@ -26,7 +26,6 @@
 }
 .columns-container {
   display: flex;
-  gap: 24px;
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 16px;
@@ -67,6 +66,7 @@
   font-weight: bold;
   cursor: pointer;
   white-space: nowrap;
+  margin-left: 24px;
   margin-right: 24px;
 }
 
