@@ -18,6 +18,7 @@ const placeholderTexts = [
 
 export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
   const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const selectedBoard = useSelector((state) =>
     state.boards.boards.find((b) => b.id === boardId)
   );
@@ -56,6 +57,11 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
   console.log("form", form);
 
   async function createTask() {
+    // Prevent duplicate submissions
+    if (isSubmitting) {
+      return;
+    }
+
     if (!columnId || !selectedBoard || !selectedBoard.id) {
       console.error("Error: columnId or boardId is undefined");
       return;
@@ -71,14 +77,15 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
     if (newErrors.title || newErrors.description) {
       return; // Stop if there are errors
     }
-
-    const newTask = {
-      name: form.title,
-      description: form.description,
-      status: form.status,
-      subtasks: form.subtasks,
-    };
     try {
+      setIsSubmitting(true);
+      const newTask = {
+        name: form.title,
+        description: form.description,
+        status: form.status,
+        subtasks: form.subtasks,
+      };
+
       // Create task via API and get the created task
       const createdTask = await Api.createTask(boardId, columnId, newTask);
 
@@ -91,9 +98,10 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
       close?.();
     } catch (error) {
       console.error("Error creating task:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   }
-
   function editSubTask(id, newName) {
     setForm((prevForm) => ({
       ...prevForm,
@@ -345,7 +353,9 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
               width="scope_3"
               shadow="null"
               opacity="null"
-              onClick={createTask}
+              type="submit"
+              disabled={isSubmitting}
+              // onClick={createTask}
             >
               {actionButton}
             </Button>

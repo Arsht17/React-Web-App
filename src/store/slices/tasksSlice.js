@@ -29,6 +29,9 @@ export const tasksSlice = createSlice({
 
       if (existingTaskIndex === -1) {
         state.tasks[boardId][columnId].push(task);
+      } else {
+        //update the task if needed
+        state.tasks[boardId][columnId][existingTaskIndex] = task;
       }
     },
 
