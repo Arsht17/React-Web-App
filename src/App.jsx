@@ -106,7 +106,7 @@ function App() {
       {isAddNewTaskOpen && selectedColumnId && selectedBoardId && (
         <AddNewTask
           close={closeAddNewTask}
-          columnId={selectedColumnId}
+          // columnId={selectedColumnId}
           boardId={selectedBoardId}
         />
       )}

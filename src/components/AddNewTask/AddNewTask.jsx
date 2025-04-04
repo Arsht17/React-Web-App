@@ -22,7 +22,8 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
   const selectedBoard = useSelector((state) =>
     state.boards.boards.find((b) => b.id === boardId)
   );
-
+  const boardColumns = selectedBoard?.columns || [];
+  const firstColumn = selectedBoard?.columns?.[0];
   const [form, setForm] = useState(
     taskToEdit
       ? {
@@ -35,8 +36,8 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
       : {
           title: "",
           description: "",
-          status: "Todo", // Default status
-          columnId: columnId, // Ensure task is linked to a column
+          status: firstColumn?.name || "", //  uses column name
+          columnId: firstColumn?.id || "", // uses column ID
           subtasks: [
             { id: crypto.randomUUID(), name: "", isError: false },
             { id: crypto.randomUUID(), name: "", isError: false },
@@ -62,7 +63,7 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
       return;
     }
 
-    if (!columnId || !selectedBoard || !selectedBoard.id) {
+    if (!form.columnId || !selectedBoard || !selectedBoard.id) {
       console.error("Error: columnId or boardId is undefined");
       return;
     }
@@ -87,11 +88,15 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
       };
 
       // Create task via API and get the created task
-      const createdTask = await Api.createTask(boardId, columnId, newTask);
+      const createdTask = await Api.createTask(boardId, form.columnId, newTask);
 
       // Dispatch action with the task returned from the API
       dispatch(
-        tasksSlice.actions.addTask({ boardId, columnId, task: createdTask })
+        tasksSlice.actions.addTask({
+          boardId,
+          columnId: form.columnId,
+          task: createdTask,
+        })
       );
 
       console.log("Task created:", createdTask);
@@ -320,28 +325,26 @@ export function AddNewTask({ close, taskToEdit, columnId, boardId }) {
             <div className="dropDown">
               <Menu>
                 <MenuButton className="Chevron-btn">
-                  {form.status}
+                  {boardColumns.find((col) => col.id === form.columnId)?.name ||
+                    "Select Column"}
                   <ChevronDownIcon className="Chevron-icon" />
                 </MenuButton>
                 <MenuItems transition anchor="bottom end" className="Items">
-                  <MenuItem
-                    className="Item"
-                    onClick={() => setForm({ ...form, status: "Todo" })}
-                  >
-                    <span>Todo</span>
-                  </MenuItem>
-                  <MenuItem
-                    className="Item"
-                    onClick={() => setForm({ ...form, status: "Doing" })}
-                  >
-                    <span>Doing</span>
-                  </MenuItem>
-                  <MenuItem
-                    className="Item"
-                    onClick={() => setForm({ ...form, status: "Done" })}
-                  >
-                    <span>Done</span>
-                  </MenuItem>
+                  {boardColumns.map((col) => (
+                    <MenuItem
+                      key={col.id}
+                      className="Item"
+                      onClick={() =>
+                        setForm({
+                          ...form,
+                          status: col.name,
+                          columnId: col.id,
+                        })
+                      }
+                    >
+                      <span>{col.name}</span>
+                    </MenuItem>
+                  ))}
                 </MenuItems>
               </Menu>
             </div>
