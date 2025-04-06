@@ -16,16 +16,9 @@
   position: relative;
   background-color: var(--editborad-bg);
   color: var(--editborad-color);
-  padding: 20px;
   border-radius: 6px;
   width: 480px;
   height: 523px;
-}
-.TaskModal-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
 }
 
 .TaskModal-close:hover,
@@ -38,4 +31,51 @@
   color: var(--modalTile-color);
   font-size: large;
   font-weight: bold;
+  padding-left: 27px;
+  padding-top: 34px;
+}
+.TaskModal-description {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--editborad-color);
+  line-height: 23px;
+  padding-left: 32px;
+}
+.menuItems {
+  position: absolute;
+  left: 353px;
+  background-color: var(--menuItems-bg);
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 192px;
+  z-index: 1000;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: auto;
+  overflow: hidden;
+}
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.dots {
+  position: absolute;
+  top: 56px;
+  right: 32px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.actions {
+  position: relative;
+  z-index: 5;
 }
