@@ -41,7 +41,7 @@
   line-height: 23px;
   padding-left: 32px;
 }
-.menuItems {
+.list {
   position: absolute;
   left: 353px;
   background-color: var(--menuItems-bg);
@@ -56,7 +56,7 @@
   height: auto;
   overflow: hidden;
 }
-.menuItem {
+.Operation {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -66,16 +66,15 @@
   text-overflow: ellipsis;
   font-weight: 500;
 }
-.dots {
+.ovals {
   position: absolute;
-  top: 56px;
-  right: 32px;
+  bottom: 56px;
   padding: 8px;
   background: none;
   border: none;
   cursor: pointer;
 }
-.actions {
+.Operations {
   position: relative;
   z-index: 5;
 }

@@ -5,9 +5,11 @@ function TaskModal({ task, onClose }) {
   return (
     <div className="TaskModal" onClick={onClose}>
       <div className="TaskModal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="actions">
+        <h3 className="TaskModal-title">{task?.name}</h3>
+        <p className="TaskModal-description">{task?.description}</p>
+        <div className="Operations">
           <Menu>
-            <MenuButton className="dots">
+            <MenuButton className="ovals">
               <svg
                 className="menu-icon"
                 width="5"
@@ -21,18 +23,16 @@ function TaskModal({ task, onClose }) {
                 <circle cx="2.30769" cy="17.6922" r="2.30769" fill="#828FA3" />
               </svg>
             </MenuButton>
-            <MenuItems transition className="menuItems">
-              <MenuItem className="menuItem">
+            <MenuItems transition className="list">
+              <MenuItem className="Operation">
                 <span>Edit Task </span>
               </MenuItem>
-              <MenuItem className="menuItem">
+              <MenuItem className="Operation">
                 <span style={{ color: "#eb0707" }}>Delete Task </span>
               </MenuItem>
             </MenuItems>
           </Menu>
         </div>
-        <h3 className="TaskModal-title">{task?.name}</h3>
-        <p className="TaskModal-description">{task?.description}</p>
       </div>
     </div>
   );
