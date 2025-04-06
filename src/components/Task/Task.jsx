@@ -1,12 +1,12 @@
 import "./Task.scss";
 
-function Task({ task }) {
+function Task({ task, onClick }) {
   const completedSubtasks =
     task.subtasks?.filter((sub) => sub.isCompleted).length || 0;
   const totalSubtasks = task.subtasks?.length || 0;
 
   return (
-    <div className="task">
+    <div className="task" onClick={() => onClick?.(task)}>
       <h5 className="task-title">{task.name}</h5>
       <p className="task-subtasks">
         {completedSubtasks} of {totalSubtasks} subtasks

@@ -2,6 +2,7 @@ import "./Columns.scss";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { selectTasksByColumn } from "../../store/slices/tasksSlice";
+import TaskModal from "../TaskModal/TaskModal";
 import Task from "../Task/Task";
 
 const columnColors = ["#49C4E5", "#8471F2", "#67E2AE"];
@@ -13,6 +14,7 @@ function getRandomColor() {
 
 function Columns({ column, index, boardId }) {
   const [color, setColor] = useState(columnColors[index] || getRandomColor());
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     if (!colorMap.has(column.id)) {
@@ -36,9 +38,12 @@ function Columns({ column, index, boardId }) {
       </div>
       <div className="tasks-container">
         {tasks.map((task) => (
-          <Task key={task.id} task={task} />
+          <Task key={task.id} task={task} onClick={setSelectedTask} />
         ))}
       </div>
+      {selectedTask && (
+        <TaskModal task={selectedTask} onClose={() => setSelectedTask(null)} />
+      )}
     </div>
   );
 }
