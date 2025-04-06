@@ -43,7 +43,8 @@
 }
 .list {
   position: absolute;
-  left: 353px;
+  bottom: -40px;
+  right: -55px;
   background-color: var(--menuItems-bg);
   padding: 16px;
   border-radius: 8px;
@@ -73,6 +74,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  right: 32px;
 }
 .Operations {
   position: relative;
