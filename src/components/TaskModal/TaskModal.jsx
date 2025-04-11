@@ -1,7 +1,7 @@
 import "./TaskModal.scss";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-function TaskModal({ task, onClose, opentaskToEdit }) {
+function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
   const completedSubtasks =
     task.subtasks?.filter((sub) => sub.isCompleted).length || 0;
   const totalSubtasks = task.subtasks?.length || 0;
@@ -38,7 +38,16 @@ function TaskModal({ task, onClose, opentaskToEdit }) {
                 </span>
               </MenuItem>
               <MenuItem className="Operation">
-                <span style={{ color: "#eb0707" }}>Delete Task </span>
+                <span
+                  onClick={() => {
+                    console.log("delete task");
+                    openDeleteTaskModal(task);
+                    onClose();
+                  }}
+                  style={{ color: "#eb0707" }}
+                >
+                  Delete Task{" "}
+                </span>
               </MenuItem>
             </MenuItems>
           </Menu>

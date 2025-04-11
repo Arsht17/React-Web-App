@@ -1,10 +1,12 @@
 import "./Columns.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { selectTasksByColumn } from "../../store/slices/tasksSlice";
+import { selectTasksByColumn, deleteTask } from "../../store/slices/tasksSlice";
 import { AddNewTask } from "../AddNewTask/AddNewTask";
+import { DeleteTaskModal } from "../DeleteTaskModal/DeleteTaskModal";
 import TaskModal from "../TaskModal/TaskModal";
 import Task from "../Task/Task";
+import { Api } from "../../api";
 
 const columnColors = ["#49C4E5", "#8471F2", "#67E2AE"];
 const colorMap = new Map();
@@ -14,9 +16,11 @@ function getRandomColor() {
 }
 
 function Columns({ column, index, boardId }) {
+  const dispatch = useDispatch();
   const [color, setColor] = useState(columnColors[index] || getRandomColor());
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [openDeleteTaskModal, setopenDeleteTaskModal] = useState(null);
 
   useEffect(() => {
     if (!colorMap.has(column.id)) {
@@ -51,6 +55,10 @@ function Columns({ column, index, boardId }) {
             setSelectedTask(null); // close modal
             setTaskToEdit(task); // open AddNewTask
           }}
+          openDeleteTaskModal={(task) => {
+            setSelectedTask(null); // close modal
+            setopenDeleteTaskModal(task); // open Delete modal
+          }}
         />
       )}
       {taskToEdit && (
@@ -58,6 +66,18 @@ function Columns({ column, index, boardId }) {
           taskToEdit={taskToEdit}
           boardId={boardId}
           close={() => setTaskToEdit(null)}
+        />
+      )}
+      {openDeleteTaskModal && (
+        <DeleteTaskModal
+          task={openDeleteTaskModal}
+          onClose={() => setopenDeleteTaskModal(null)}
+          onConfirm={(task) => {
+            dispatch(
+              deleteTask({ boardId, columnId: task.columnId, taskId: task.id })
+            );
+            Api.deleteTask(boardId, task.columnId, task.id);
+          }}
         />
       )}
     </div>
