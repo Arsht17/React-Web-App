@@ -11,14 +11,17 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
 }
+.TaskModal-wrapper {
+  position: relative;
+  width: 480px;
+  background-color: var(--editborad-bg);
+  border-radius: 6px;
+  color: var(--editborad-color);
+  height: 523px;
+}
 
 .TaskModal-content {
-  position: relative;
-  background-color: var(--editborad-bg);
-  color: var(--editborad-color);
-  border-radius: 6px;
-  width: 480px;
-  height: 523px;
+  padding: 12px;
 }
 
 .TaskModal-close:hover,
@@ -33,18 +36,32 @@
   font-weight: bold;
   padding-left: 27px;
   padding-top: 34px;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 420px;
 }
 .TaskModal-description {
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 500;
   color: var(--editborad-color);
   line-height: 23px;
   padding-left: 32px;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 416px;
+}
+.TaskModal-Subtasks {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--editborad-color);
+  padding-left: 32px;
+  margin-top: 20px;
+  font-size: 14px;
 }
 .list {
   position: absolute;
-  bottom: -40px;
-  right: -55px;
+  top: 120px;
+  right: -52px;
   background-color: var(--menuItems-bg);
   padding: 16px;
   border-radius: 8px;
@@ -69,8 +86,8 @@
 }
 .ovals {
   position: absolute;
-  bottom: 56px;
-  padding: 8px;
+  top: 70px;
+  right: 32px;
   background: none;
   border: none;
   cursor: pointer;

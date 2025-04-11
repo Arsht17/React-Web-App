@@ -2,11 +2,12 @@ import "./TaskModal.scss";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 function TaskModal({ task, onClose }) {
+  const completedSubtasks =
+    task.subtasks?.filter((sub) => sub.isCompleted).length || 0;
+  const totalSubtasks = task.subtasks?.length || 0;
   return (
     <div className="TaskModal" onClick={onClose}>
-      <div className="TaskModal-content" onClick={(e) => e.stopPropagation()}>
-        <h3 className="TaskModal-title">{task?.name}</h3>
-        <p className="TaskModal-description">{task?.description}</p>
+      <div className="TaskModal-wrapper" onClick={(e) => e.stopPropagation()}>
         <div className="Operations">
           <Menu>
             <MenuButton className="ovals">
@@ -32,6 +33,13 @@ function TaskModal({ task, onClose }) {
               </MenuItem>
             </MenuItems>
           </Menu>
+        </div>
+        <div className="TaskModal-content" onClick={(e) => e.stopPropagation()}>
+          <h3 className="TaskModal-title">{task?.name}</h3>
+          <p className="TaskModal-description">{task?.description}</p>
+          <p className="TaskModal-Subtasks">
+            <strong>Subtasks</strong> ({completedSubtasks} of {totalSubtasks})
+          </p>
         </div>
       </div>
     </div>
