@@ -27,8 +27,11 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
   const [form, setForm] = useState(
     taskToEdit
       ? {
-          ...taskToEdit, // Load existing task
-          subtasks: taskToEdit.subtasks.map((subtask) => ({
+          title: taskToEdit.name || "",
+          description: taskToEdit.description || "",
+          status: taskToEdit.status || firstColumn?.name || "",
+          columnId: taskToEdit.columnId || firstColumn?.id || "",
+          subtasks: (taskToEdit.subtasks || []).map((subtask) => ({
             ...subtask,
             isError: false, // Ensure error is handled
           })),
@@ -48,10 +51,10 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
   const [error, setErrors] = useState({ title: false, description: false });
 
   // Derived state for validation
-  const isValidTitle = !!form.title.length;
-  const isValidDescription = !!form.description.length;
-  const hasQInDescription = form.description.includes("?");
-  const hasQInTitle = form.title.includes("?");
+  const isValidTitle = form.title && !!form.title.length;
+  const isValidDescription = form.description && !!form.description.length;
+  const hasQInDescription = form.description && form.description.includes("?");
+  const hasQInTitle = form.title && form.title.includes("?");
   const Header = taskToEdit ? "Edit Task" : "Add New Task";
   const actionButton = taskToEdit ? "Save Changes" : "Create Task";
 
@@ -59,9 +62,7 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
 
   async function createTask() {
     // Prevent duplicate submissions
-    if (isSubmitting) {
-      return;
-    }
+    if (isSubmitting) return;
 
     if (!form.columnId || !selectedBoard || !selectedBoard.id) {
       console.error("Error: columnId or boardId is undefined");
@@ -69,8 +70,8 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
     }
 
     const newErrors = {
-      title: form.title.trim() === "",
-      description: form.description.trim() === "",
+      title: !form.title || form.title.trim() === "",
+      description: !form.description || form.description.trim() === "",
     };
 
     setErrors(newErrors); // Update error state
@@ -78,31 +79,57 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
     if (newErrors.title || newErrors.description) {
       return; // Stop if there are errors
     }
+    const Payload = {
+      name: form.title,
+      description: form.description,
+      status: form.status,
+      subtasks: form.subtasks,
+    };
+
     try {
       setIsSubmitting(true);
-      const newTask = {
-        name: form.title,
-        description: form.description,
-        status: form.status,
-        subtasks: form.subtasks,
-      };
+      if (taskToEdit) {
+        //Edit Mode
+        const updatedTask = {
+          ...taskToEdit,
+          ...Payload,
+        };
 
-      // Create task via API and get the created task
-      const createdTask = await Api.createTask(boardId, form.columnId, newTask);
+        await Api.editTask(boardId, form.columnId, taskToEdit.id, updatedTask);
 
-      // Dispatch action with the task returned from the API
-      dispatch(
-        tasksSlice.actions.addTask({
+        dispatch(
+          tasksSlice.actions.editTask({
+            boardId,
+            columnId: form.columnId,
+            task: updatedTask,
+          })
+        );
+        console.log("Task updated:", updatedTask);
+      } else {
+        // Create MODE
+        const createdTask = await Api.createTask(
           boardId,
-          columnId: form.columnId,
-          task: createdTask,
-        })
-      );
+          form.columnId,
+          Payload
+        );
 
-      console.log("Task created:", createdTask);
+        // Dispatch action with the task returned from the API
+        dispatch(
+          tasksSlice.actions.addTask({
+            boardId,
+            columnId: form.columnId,
+            task: createdTask,
+          })
+        );
+        console.log("Task created:", createdTask);
+      }
+
       close?.();
     } catch (error) {
-      console.error("Error creating task:", error);
+      console.error(
+        taskToEdit ? "Error updating task:" : "Error creating task:",
+        error
+      );
     } finally {
       setIsSubmitting(false);
     }

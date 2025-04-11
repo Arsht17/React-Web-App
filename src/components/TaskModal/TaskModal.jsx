@@ -1,10 +1,11 @@
 import "./TaskModal.scss";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-function TaskModal({ task, onClose }) {
+function TaskModal({ task, onClose, opentaskToEdit }) {
   const completedSubtasks =
     task.subtasks?.filter((sub) => sub.isCompleted).length || 0;
   const totalSubtasks = task.subtasks?.length || 0;
+
   return (
     <div className="TaskModal" onClick={onClose}>
       <div className="TaskModal-wrapper" onClick={(e) => e.stopPropagation()}>
@@ -26,7 +27,15 @@ function TaskModal({ task, onClose }) {
             </MenuButton>
             <MenuItems transition className="list">
               <MenuItem className="Operation">
-                <span>Edit Task </span>
+                <span
+                  onClick={() => {
+                    console.log("edit task");
+                    opentaskToEdit(task);
+                    onClose();
+                  }}
+                >
+                  Edit Task
+                </span>
               </MenuItem>
               <MenuItem className="Operation">
                 <span style={{ color: "#eb0707" }}>Delete Task </span>

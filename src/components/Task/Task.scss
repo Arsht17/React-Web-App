@@ -1,13 +1,17 @@
 .task {
-  position: relative;
   width: 280px;
-  height: 88px;
+  min-height: 88px;
+  height: auto;
   background-color: var(--editborad-bg);
   border-radius: 6px;
-  padding: 16px;
+  padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease;
+  gap: 8px;
 
   &:hover {
     border-color: #969696;
@@ -15,21 +19,17 @@
 }
 
 .task-title {
-  position: absolute;
-  bottom: 23px;
   font-size: 14px;
   font-weight: bold;
   color: var(--input-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
+  margin-bottom: auto;
 }
 
 .task-subtasks {
-  position: absolute;
-  top: 50px;
   font-size: 12px;
   font-weight: bold;
   color: var(--editborad-color);
-  margin-top: 4px;
+  margin-top: auto;
 }
