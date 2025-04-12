@@ -49,7 +49,7 @@ function Columns({ column, index, boardId }) {
       </div>
       {selectedTask && (
         <TaskModal
-          task={selectedTask}
+          task={{ ...selectedTask, columnId: column.id }}
           onClose={() => setSelectedTask(null)}
           opentaskToEdit={(task) => {
             setSelectedTask(null); // close modal
@@ -57,7 +57,7 @@ function Columns({ column, index, boardId }) {
           }}
           openDeleteTaskModal={(task) => {
             setSelectedTask(null); // close modal
-            setopenDeleteTaskModal(task); // open Delete modal
+            setopenDeleteTaskModal({ ...task, columnId: column.id }); // open Delete modal
           }}
         />
       )}
@@ -73,9 +73,14 @@ function Columns({ column, index, boardId }) {
           task={openDeleteTaskModal}
           onClose={() => setopenDeleteTaskModal(null)}
           onConfirm={(task) => {
+            if (!task?.columnId) {
+              console.log("Missing columnId in task:", task);
+              return;
+            }
             dispatch(
               deleteTask({ boardId, columnId: task.columnId, taskId: task.id })
             );
+            console.log("Deleting task:", task);
             Api.deleteTask(boardId, task.columnId, task.id);
           }}
         />
