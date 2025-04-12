@@ -21,11 +21,12 @@ export function BoardFormModal({ close, boardToEdit }) {
   );
 
   function editBoardName(newName) {
+    const trimmed = newName.slice(0, 20); //hard limit
     setForm({
       ...form,
-      name: newName,
+      name: trimmed,
     });
-    setError(newName.trim() === "");
+    setError(trimmed.trim() === "");
   }
 
   function addNewColumn() {
@@ -153,12 +154,21 @@ export function BoardFormModal({ close, boardToEdit }) {
               id="board-name"
               type="text"
               placeholder="e.g. Web Design"
-              onChange={(e) => editBoardName(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value.slice(0, 20); // limit to 20 characters
+                editBoardName(value);
+              }}
               value={form?.name}
+              maxLength={20}
               style={{
                 borderColor: error ? "red" : "#ccc",
               }}
             />
+            <small
+              style={{ color: "#888", fontSize: "12px", marginTop: "4px" }}
+            >
+              {form.name.length}/20 characters
+            </small>
             {error && <p className="error-message">Board Name is required</p>}
           </div>
           <div className="columns-list">
@@ -176,17 +186,18 @@ export function BoardFormModal({ close, boardToEdit }) {
                   <input
                     placeholder="Enter column name"
                     onChange={(event) => {
-                      editColumn(event.target.value, column.id);
-                      handleColumnChange(column.id, event.target.value);
+                      const value = event.target.value.slice(0, 20); // limit to 20 characters
+                      editColumn(value, column.id);
+                      handleColumnChange(column.id, value);
                     }}
                     defaultValue={column.name}
                     type="text"
+                    maxLength={20}
                     className={column.isError ? "error" : ""}
                   />
                   {column.isError && (
                     <span className="error-message">Can’t be empty</span>
                   )}
-
                   <button
                     className="remove"
                     onClick={() => removeColumn(column.id)}
