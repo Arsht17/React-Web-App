@@ -34,6 +34,25 @@ function Columns({ column, index, boardId }) {
     selectTasksByColumn(state, boardId, column.id)
   );
 
+  async function deleteTaskHandler(task) {
+    if (!task?.columnId) {
+      console.error("Missing columnId in task:", task);
+      return;
+    }
+
+    try {
+      await Api.deleteTask(boardId, task.columnId, task.id); // Server
+      dispatch(
+        deleteTask({ boardId, columnId: task.columnId, taskId: task.id })
+      ); // Redux
+      console.log("Task deleted:", task);
+    } catch (error) {
+      console.error("Failed to delete task:", error);
+    } finally {
+      setopenDeleteTaskModal(null); // Close modal after action
+    }
+  }
+
   return (
     <div className="column">
       <div className="column-header">
@@ -72,17 +91,7 @@ function Columns({ column, index, boardId }) {
         <DeleteTaskModal
           task={openDeleteTaskModal}
           onClose={() => setopenDeleteTaskModal(null)}
-          onConfirm={(task) => {
-            if (!task?.columnId) {
-              console.log("Missing columnId in task:", task);
-              return;
-            }
-            dispatch(
-              deleteTask({ boardId, columnId: task.columnId, taskId: task.id })
-            );
-            console.log("Deleting task:", task);
-            Api.deleteTask(boardId, task.columnId, task.id);
-          }}
+          onConfirm={deleteTaskHandler}
         />
       )}
     </div>
