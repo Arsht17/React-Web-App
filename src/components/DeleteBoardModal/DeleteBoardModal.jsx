@@ -13,8 +13,9 @@ export function DeleteBoardModal({ isOpen, onClose, onConfirm, boardName }) {
         <h3 className="DeleteBoardModal-title">Delete this board?</h3>
         <p>
           Are you sure you want to delete the '<strong>{boardName}</strong>'
-          board? This <br /> action will remove all columns and tasks and cannot
-          be reversed.
+          board?
+          <br /> This action will remove all columns and tasks and cannot be
+          reversed.
         </p>
         <div className="DeleteBoardModal-actions">
           <Button

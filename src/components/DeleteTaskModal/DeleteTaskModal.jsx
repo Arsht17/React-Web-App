@@ -11,8 +11,8 @@ export function DeleteTaskModal({ task, onClose, onConfirm }) {
         <h3 className="DeleteTaskModal-title">Delete this Task?</h3>
         <p>
           Are you sure you want to delete the <strong>‘{task?.name}’</strong>
-          and its
-          <br /> subtask? This action cannot be reversed
+          and its subtask? <br />
+          This action cannot be reversed
         </p>
         <div className="DeleteTaskModal-actions">
           <Button
