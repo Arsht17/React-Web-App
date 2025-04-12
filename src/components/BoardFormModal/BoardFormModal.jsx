@@ -21,7 +21,7 @@ export function BoardFormModal({ close, boardToEdit }) {
   );
 
   function editBoardName(newName) {
-    const trimmed = newName.slice(0, 20); //hard limit
+    const trimmed = newName.slice(0, 18); //hard limit
     setForm({
       ...form,
       name: trimmed,
@@ -155,7 +155,7 @@ export function BoardFormModal({ close, boardToEdit }) {
               type="text"
               placeholder="e.g. Web Design"
               onChange={(e) => {
-                const value = e.target.value.slice(0, 20); // limit to 20 characters
+                const value = e.target.value.slice(0, 18); // limit to 18 characters
                 editBoardName(value);
               }}
               value={form?.name}
@@ -167,7 +167,7 @@ export function BoardFormModal({ close, boardToEdit }) {
             <small
               style={{ color: "#888", fontSize: "12px", marginTop: "4px" }}
             >
-              {form.name.length}/20 characters
+              {form.name.length}/18 characters
             </small>
             {error && <p className="error-message">Board Name is required</p>}
           </div>
@@ -186,13 +186,13 @@ export function BoardFormModal({ close, boardToEdit }) {
                   <input
                     placeholder="Enter column name"
                     onChange={(event) => {
-                      const value = event.target.value.slice(0, 20); // limit to 20 characters
+                      const value = event.target.value.slice(0, 18); // limit to 18 characters
                       editColumn(value, column.id);
                       handleColumnChange(column.id, value);
                     }}
                     defaultValue={column.name}
                     type="text"
-                    maxLength={20}
+                    maxLength={18}
                     className={column.isError ? "error" : ""}
                   />
                   {column.isError && (
@@ -204,6 +204,15 @@ export function BoardFormModal({ close, boardToEdit }) {
                   >
                     X
                   </button>
+                  <small
+                    style={{
+                      color: "#888",
+                      fontSize: "12px",
+                      marginTop: "4px",
+                    }}
+                  >
+                    {form.name.length}/18 characters
+                  </small>
                 </div>
               );
             })}

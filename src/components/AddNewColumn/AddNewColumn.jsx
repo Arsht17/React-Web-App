@@ -140,7 +140,7 @@ export function AddNewColumn({ onClose, boardId, selectedBoard }) {
                   type="text"
                   placeholder="Enter column name"
                   value={column.name}
-                  maxLength={20}
+                  maxLength={18}
                   onChange={(e) =>
                     handleColumnChange(column.id, e.target.value)
                   }
