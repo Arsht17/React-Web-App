@@ -8,7 +8,7 @@ export function DeleteTaskModal({ task, onClose, onConfirm }) {
         className="DeleteTaskModal-content"
         onClick={(e) => e.stopPropagation()}
       >
-        <h3 className="DeleteTaskModal-title">Delete this board?</h3>
+        <h3 className="DeleteTaskModal-title">Delete this Task?</h3>
         <p>
           Are you sure you want to delete the <strong>‘{task?.name}’</strong>
           and its

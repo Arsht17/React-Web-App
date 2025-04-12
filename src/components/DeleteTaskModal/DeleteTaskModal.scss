@@ -18,7 +18,8 @@
   color: var(--editborad-color);
   padding: 20px;
   width: 480px;
-  height: 229px;
+  min-height: 229px;
+  height: auto;
   font-size: 14px;
   border-radius: 6px;
 }
@@ -27,15 +28,20 @@
   font-size: 18px;
   font-weight: bold;
   color: red;
+  margin-bottom: 16px;
+  white-space: normal;
+  word-break: break-word;
 }
 .DeleteTaskModal-title,
 .DeleteTaskModal-content p {
   padding-left: 7px;
+  white-space: normal;
+  word-break: break-word;
 }
 .DeleteTaskModal-actions {
   display: flex;
   flex-direction: row;
-  position: absolute;
   align-items: center;
   gap: 16px;
+  margin-top: 32px;
 }
