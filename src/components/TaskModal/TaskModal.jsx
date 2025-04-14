@@ -114,6 +114,7 @@ function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
               </div>
             ))}
           </div>
+          <p className="TaskModal-status">Current Status</p>
         </div>
       </div>
     </div>
