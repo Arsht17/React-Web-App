@@ -139,7 +139,7 @@ export function BoardFormModal({ close, boardToEdit }) {
           style={{
             height: `${
               481 +
-              Math.max(0, (form.columns.length - 3) * 50) +
+              Math.max(0, (form.columns.length - 2) * 50) +
               (error ? 32 : 0)
             }px`,
           }}
@@ -204,15 +204,6 @@ export function BoardFormModal({ close, boardToEdit }) {
                   >
                     X
                   </button>
-                  <small
-                    style={{
-                      color: "#888",
-                      fontSize: "12px",
-                      marginTop: "4px",
-                    }}
-                  >
-                    {form.name.length}/18 characters
-                  </small>
                 </div>
               );
             })}
