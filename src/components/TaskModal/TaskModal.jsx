@@ -1,10 +1,47 @@
 import "./TaskModal.scss";
+import { useDispatch } from "react-redux";
+import { Api } from "../../api";
+import { tasksSlice } from "../../store";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { useState, useEffect } from "react";
 
 function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
+  const dispatch = useDispatch();
+  const [localTask, setLocalTask] = useState(task);
+
   const completedSubtasks =
-    task.subtasks?.filter((sub) => sub.isCompleted).length || 0;
+    localTask.subtasks?.filter((sub) => sub.isCompleted).length || 0;
   const totalSubtasks = task.subtasks?.length || 0;
+
+  useEffect(() => {
+    if (!localTask) {
+      setLocalTask(task);
+    }
+  }, []);
+
+  const toogleSubtask = async (subtaskId) => {
+    const updatedsubtask = localTask.subtasks.map((sub) =>
+      sub.id === subtaskId ? { ...sub, isCompleted: !sub.isCompleted } : sub
+    );
+
+    const updatedTask = {
+      ...localTask,
+      subtasks: updatedsubtask,
+    };
+
+    // Update local state instantly
+    setLocalTask(updatedTask);
+    // Send to backend
+    await Api.editTask(updatedTask.boardId, updatedTask.columnId, updatedTask);
+    // Update redux store
+    dispatch(
+      tasksSlice.actions.editTask({
+        boardId: updatedTask.boardId,
+        columnId: updatedTask.columnId,
+        task: updatedTask,
+      })
+    );
+  };
 
   return (
     <div className="TaskModal" onClick={onClose}>
@@ -58,6 +95,25 @@ function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
           <p className="TaskModal-Subtasks">
             <strong>Subtasks</strong> ({completedSubtasks} of {totalSubtasks})
           </p>
+          <div className="Subtasks-list">
+            {localTask.subtasks?.map((subtask) => (
+              <div
+                key={subtask.id}
+                className={`subTask-item ${
+                  subtask.isCompleted ? "completed" : ""
+                }`}
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={subtask.isCompleted}
+                    onChange={() => toogleSubtask(subtask.id)}
+                  />
+                  <span className="subtask-text">{subtask.name}</span>
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

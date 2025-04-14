@@ -68,7 +68,7 @@ function Columns({ column, index, boardId }) {
       </div>
       {selectedTask && (
         <TaskModal
-          task={{ ...selectedTask, columnId: column.id }}
+          task={{ ...selectedTask, columnId: column.id, boardId }}
           onClose={() => setSelectedTask(null)}
           opentaskToEdit={(task) => {
             setSelectedTask(null); // close modal

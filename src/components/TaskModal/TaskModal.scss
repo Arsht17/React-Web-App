@@ -16,12 +16,7 @@
   width: 480px;
   background-color: var(--editborad-bg);
   border-radius: 6px;
-  color: var(--editborad-color);
   height: 523px;
-}
-
-.TaskModal-content {
-  padding: 12px;
 }
 
 .TaskModal-close:hover,
@@ -34,7 +29,7 @@
   color: var(--modalTile-color);
   font-size: large;
   font-weight: bold;
-  padding-left: 27px;
+  padding-left: 32px;
   padding-top: 34px;
   white-space: normal;
   word-break: break-word;
@@ -58,6 +53,52 @@
   margin-top: 20px;
   font-size: 14px;
 }
+
+.Subtasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  padding-left: 32px;
+}
+.subTask-item {
+  width: 416px;
+  height: 40px;
+  background-color: rgba(99, 95, 199, 0.25);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  padding-left: 12px;
+
+  input[type="checkbox"] {
+    margin-right: 12px;
+    color: #635fc7;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+  }
+  .subtask-text {
+    font-weight: 700;
+    font-size: 12px;
+    user-select: none;
+  }
+
+  &.completed {
+    background-color: var(--subtask-modal-color);
+
+    .subtask-text {
+      color: var(--input-color);
+      text-decoration: line-through;
+    }
+  }
+}
+
 .list {
   position: absolute;
   top: 120px;

@@ -22,6 +22,7 @@
   --input-color:black;
   --newColumn-btn-color:#e9effa;
   --scrollbar-main-color:rgba(0, 0, 0, 0.1);
+  --subtask-modal-color:#f4f7fd;
 }
 :root.dark {
   --main-bg: #20212c;
@@ -44,6 +45,7 @@
   --input-color:white;
   --newColumn-btn-color: hsl(235, 12%, 19%);
   --scrollbar-main-color:white;
+  --subtask-modal-color:#20212C;
 }
 body {
   margin: 0;
