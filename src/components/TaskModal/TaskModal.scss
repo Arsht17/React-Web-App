@@ -176,6 +176,7 @@
   width: 20px;
   height: 20px;
   margin-left: auto;
+  color: #635fc7;
 }
 .Chevron-btn {
   width: 416px;
@@ -192,6 +193,10 @@
   font-weight: 500;
   color: var(--input-color);
 }
+.Chevron-btn[aria-expanded="true"] {
+  border-color: #635fc7;
+}
+
 .drop-Down {
   position: relative;
   padding-left: 32px;
