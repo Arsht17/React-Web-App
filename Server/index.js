@@ -14,7 +14,7 @@ const boards = [
   {
     id: crypto.randomUUID(),
     name: "developers",
-    columns: [{ id: crypto.randomUUID(), name: "To Do", tasks: [] }],
+    columns: [],
   },
   {
     id: crypto.randomUUID(),
