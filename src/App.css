@@ -75,5 +75,40 @@ text-decoration: none;
 color:inherit ;
 }
 
+@media (max-width: 1024px) {
+  .content {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .right {
+    width: 100%;
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    padding: 0 8px;
+  }
+
+  .app {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .right {
+    padding: 0;
+    width: 100%;
+  }
+}
 /* justify-content = horizontal (column), vertical (row)
 /* align-items= horizontal (row), vertical (column)
+
