@@ -1,24 +1,42 @@
 import "./TaskModal.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Api } from "../../api";
 import { tasksSlice } from "../../store";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { useState, useEffect } from "react";
 
 function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
   const dispatch = useDispatch();
+
+  // grab the full board so we can list its columns
+  const boardId = task.boardId;
+  const selectedBoard = useSelector((s) =>
+    s.boards.boards.find((b) => b.id === boardId)
+  );
+  const boardColumns = selectedBoard?.columns || [];
+
+  //  existing localTask logic
   const [localTask, setLocalTask] = useState(task);
+
+  // isCompleted false default for all subtasks
+  useEffect(() => {
+    if (!localTask) {
+      setLocalTask(task);
+    }
+  }, [task]);
+
+  // form holds the current columnId
+  const [form, setForm] = useState({ columnId: task.columnId });
+  useEffect(() => {
+    setForm({ columnId: task.columnId });
+  }, [task.columnId]);
 
   const completedSubtasks =
     localTask.subtasks?.filter((sub) => sub.isCompleted).length || 0;
   const totalSubtasks = task.subtasks?.length || 0;
 
-  useEffect(() => {
-    if (!localTask) {
-      setLocalTask(task);
-    }
-  }, []);
-
+  // toggle subtasks
   const toogleSubtask = async (subtaskId) => {
     const updatedsubtask = localTask.subtasks.map((sub) =>
       sub.id === subtaskId ? { ...sub, isCompleted: !sub.isCompleted } : sub
@@ -38,6 +56,37 @@ function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
       tasksSlice.actions.editTask({
         boardId: updatedTask.boardId,
         columnId: updatedTask.columnId,
+        task: updatedTask,
+      })
+    );
+  };
+
+  //move the task into another column
+  const moveTaskTo = async (newColumnId) => {
+    if (newColumnId === form.columnId) return;
+    const oldColumnId = form.columnId;
+    const updatedTask = { ...localTask, columnId: newColumnId };
+
+    // instant UI
+    setLocalTask(updatedTask);
+    setForm({ columnId: newColumnId });
+
+    // server deletes from old column, creates in new
+    await Api.deleteTask(boardId, oldColumnId, updatedTask.id);
+    await Api.createTask(boardId, newColumnId, updatedTask);
+
+    // Redux removed from old, added to new
+    dispatch(
+      tasksSlice.actions.deleteTask({
+        boardId,
+        columnId: oldColumnId,
+        taskId: updatedTask.id,
+      })
+    );
+    dispatch(
+      tasksSlice.actions.addTask({
+        boardId,
+        columnId: newColumnId,
         task: updatedTask,
       })
     );
@@ -115,6 +164,26 @@ function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
             ))}
           </div>
           <p className="TaskModal-status">Current Status</p>
+          <div className="drop-Down">
+            <Menu>
+              <MenuButton className="Chevron-btn">
+                {boardColumns.find((col) => col.id === form.columnId)?.name ||
+                  "Select Column"}
+                <ChevronDownIcon className="Chevron-icon" />
+              </MenuButton>
+              <MenuItems transition anchor="bottom end" className="Items">
+                {boardColumns.map((col) => (
+                  <MenuItem
+                    key={col.id}
+                    className="Item"
+                    onClick={() => moveTaskTo(col.id)}
+                  >
+                    <span>{col.name}</span>
+                  </MenuItem>
+                ))}
+              </MenuItems>
+            </Menu>
+          </div>
         </div>
       </div>
     </div>

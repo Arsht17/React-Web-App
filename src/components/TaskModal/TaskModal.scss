@@ -148,3 +148,51 @@
   position: relative;
   z-index: 5;
 }
+
+.Items {
+  position: absolute !important;
+  left: 0;
+  transform: translateY(8px);
+  background-color: var(--menuItems-bg);
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 416px;
+  z-index: 10;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  height: auto;
+  overflow: hidden;
+}
+.Item {
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #828fa3;
+}
+.Chevron-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+}
+.Chevron-btn {
+  width: 416px;
+  height: 40px;
+  background: none;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--input-color);
+}
+.drop-Down {
+  position: relative;
+  padding-left: 32px;
+}

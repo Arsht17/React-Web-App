@@ -56,18 +56,6 @@ export function AppContextProvider({ children }) {
       })
     );
   }
-  // async function createTask(columnId, task) {
-  //   const res = await fetch(
-  //     "http://localhost:4000/api/columns/${columnId}/tasks",
-  //     {
-  //       body: JSON.stringify({ task }),
-  //       method: "POST",
-  //       headers: { "content-type": "application/json" },
-  //     }
-  //   );
-  //   const newTask = await res.json();
-  //   dispatch(tasksSlice.actions.addTask({ columnId, task: newTask }));
-  // }
 
   const selectedBoard = boards.find((board) => board.id === selectedBoardId);
   const data = {
