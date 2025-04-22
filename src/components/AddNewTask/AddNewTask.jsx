@@ -31,6 +31,7 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
           description: taskToEdit.description || "",
           status: taskToEdit.status || firstColumn?.name || "",
           columnId: taskToEdit.columnId || firstColumn?.id || "",
+          originalColumnId: taskToEdit.columnId || firstColumn?.id || "",
           subtasks: (taskToEdit.subtasks || []).map((subtask) => ({
             ...subtask,
             isError: false, // Ensure error is handled
@@ -95,16 +96,54 @@ export function AddNewTask({ close, taskToEdit, boardId }) {
           ...Payload,
         };
 
-        await Api.editTask(boardId, form.columnId, taskToEdit.id, updatedTask);
+        //check column change
+        if (form.columnId !== form.originalColumnId) {
+          console.log(
+            "moving task:",
+            form.originalColumnId,
+            "->",
+            form.columnId
+          );
 
-        dispatch(
-          tasksSlice.actions.editTask({
+          // Delete from old column
+          await Api.deleteTask(boardId, form.originalColumnId, taskToEdit.id);
+
+          // Create in new column
+          const createdTask = await Api.createTask(
             boardId,
-            columnId: form.columnId,
-            task: updatedTask,
-          })
-        );
-        console.log("Task updated:", updatedTask);
+            form.columnId,
+            updatedTask
+          );
+
+          // Update Redux state
+          dispatch(
+            tasksSlice.actions.deleteTask({
+              boardId,
+              columnId: form.originalColumnId,
+              taskId: taskToEdit.id,
+            })
+          );
+
+          dispatch(
+            tasksSlice.actions.addTask({
+              boardId,
+              columnId: form.columnId,
+              task: createdTask,
+            })
+          );
+
+          console.log("Task moved and updated:", createdTask);
+        } else {
+          await Api.editTask(boardId, form.columnId, updatedTask);
+          dispatch(
+            tasksSlice.actions.editTask({
+              boardId,
+              columnId: form.columnId,
+              task: updatedTask,
+            })
+          );
+          console.log("Task updated:", updatedTask);
+        }
       } else {
         // Create MODE
         const createdTask = await Api.createTask(
