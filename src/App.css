@@ -75,18 +75,7 @@ text-decoration: none;
 color:inherit ;
 }
 
-@media (max-width: 1024px) {
-  .content {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .right {
-    width: 100%;
-    flex: 1;
-  }
-}
-
+/* responsive*/
 @media (max-width: 768px) {
   .content {
     flex-direction: column;

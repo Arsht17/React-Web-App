@@ -92,3 +92,83 @@
 .actions {
   position: relative;
 }
+
+/* responsive*/
+@media (max-width: 768px) {
+  .Header {
+    height: 70px;
+    padding: 0 8px;
+  }
+
+  .kanban {
+    font-size: 20px;
+    padding-left: 8px;
+    margin-right: 16px;
+  }
+
+  .kanban-logo {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .title {
+    font-size: medium;
+    max-width: 200px;
+    padding: 0 8px;
+  }
+
+  .menuItems {
+    width: 160px;
+    padding: 12px;
+    right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Header {
+    height: 60px;
+  }
+
+  .kanban {
+    font-size: 18px;
+    padding-left: 4px;
+    margin-right: 8px;
+  }
+
+  .kanban-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+  }
+
+  .title {
+    font-size: small;
+    max-width: 120px;
+    padding: 0 4px;
+  }
+
+  /* Hide logo text on very small screens */
+  .kanban-text {
+    display: none;
+  }
+
+  .add-text {
+    display: none; /* Hide text on button, show only icon */
+  }
+
+  .Header .actions {
+    gap: 8px;
+  }
+
+  .menuItems {
+    width: 140px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .menuItem {
+    padding: 6px 0;
+    font-size: 14px;
+  }
+}

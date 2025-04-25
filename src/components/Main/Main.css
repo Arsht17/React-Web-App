@@ -30,7 +30,8 @@
   overflow-y: hidden;
   padding-bottom: 16px;
   white-space: nowrap;
-  max-width: calc(100vw - 300px);
+  /* max-width: calc(100vw - 300px); */
+  width: 100%;
   min-width: 100%;
   position: relative;
 }
@@ -52,7 +53,9 @@
   position: relative;
   top: 95px;
   width: 280px;
-  height: 1014px;
+  height: calc(100vh - 200px); /* Dynamic height based on viewport */
+  min-height: 500px; /* Minimum height */
+  max-height: 1014px; /* Maximum height */
   padding: 16px;
   display: flex;
   align-items: center;
@@ -72,4 +75,43 @@
 
 .New-Column:hover {
   color: #635fc7;
+}
+
+/* responsive*/
+@media (max-width: 768px) {
+  .Main {
+    padding: 0 8px;
+  }
+
+  .columns-container {
+    gap: 10px;
+  }
+
+  .New-Column {
+    width: 200px;
+    height: 800px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .columns-container {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 0 8px 16px 8px;
+  }
+
+  .New-Column {
+    width: 180px;
+    height: 700px;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .empty-text {
+    font-size: medium;
+    text-align: center;
+    padding: 0 12px;
+  }
 }

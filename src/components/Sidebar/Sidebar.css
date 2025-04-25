@@ -191,3 +191,64 @@ input:checked + .slider:before {
 .open-sidebar:hover {
   background-color: var(--side-hide-hover);
 }
+
+/* responsive*/
+@media (max-width: 768px) {
+  .Sidebar.open {
+    width: 200px;
+  }
+
+  .create-new-board,
+  .board {
+    width: 180px;
+    padding-left: 28px;
+  }
+
+  .switch-container {
+    width: 180px;
+    left: 10px;
+    gap: 12px;
+  }
+
+  .open-sidebar {
+    width: 48px;
+    height: 42px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Sidebar.open {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    top: unset;
+    flex-direction: row;
+    overflow-x: auto;
+    border-top: 1px solid var(--side-border);
+    border-right: none;
+    padding: 8px;
+    gap: 8px;
+  }
+  .Boards-list {
+    padding-left: 0;
+  }
+
+  .board,
+  .create-new-board {
+    flex: 0 0 auto;
+    width: auto;
+    height: 40px;
+    font-size: 13px;
+    padding: 0 16px;
+  }
+
+  .switch-container,
+  .Hide-container {
+    display: none;
+  }
+
+  .open-sidebar {
+    bottom: 8px;
+  }
+}

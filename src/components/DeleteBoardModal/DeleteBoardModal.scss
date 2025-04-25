@@ -44,3 +44,49 @@
   align-items: center;
   gap: 16px;
 }
+
+/* responsive*/
+@media (max-width: 768px) {
+  .DeleteBoardModal {
+    padding: 20px;
+    min-height: 180px;
+    max-width: 450px;
+  }
+  .DeleteBoardModal-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .DeleteBoardModal-content p {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .DeleteBoardModal-content {
+    padding: 16px;
+    min-height: 160px;
+    width: 95%;
+  }
+
+  .DeleteBoardModal-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .DeleteBoardModal-content p {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .DeleteBoardModal-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .DeleteBoardModal-actions button {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
