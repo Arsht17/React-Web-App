@@ -45,3 +45,62 @@
   gap: 16px;
   margin-top: 32px;
 }
+
+/*responsive*/
+@media (max-width: 1024px) {
+  .DeleteTaskModal-content {
+    width: 440px;
+    font-size: 13px;
+    padding: 18px;
+  }
+
+  .DeleteTaskModal-title {
+    font-size: 17px;
+  }
+
+  .DeleteTaskModal-actions {
+    gap: 14px;
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .DeleteTaskModal-content {
+    width: 90%;
+    padding: 16px;
+    font-size: 13px;
+  }
+
+  .DeleteTaskModal-title {
+    font-size: 16px;
+  }
+
+  .DeleteTaskModal-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .DeleteTaskModal-content {
+    width: 95%;
+    padding: 14px;
+    font-size: 12px;
+  }
+
+  .DeleteTaskModal-title {
+    font-size: 15px;
+    padding-left: 4px;
+  }
+
+  .DeleteTaskModal-content p {
+    padding-left: 4px;
+  }
+
+  .DeleteTaskModal-actions {
+    gap: 10px;
+    margin-top: 20px;
+  }
+}

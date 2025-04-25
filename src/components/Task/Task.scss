@@ -33,3 +33,51 @@
   color: var(--editborad-color);
   margin-top: auto;
 }
+
+/*  responsive  */
+
+@media (max-width: 768px) {
+  .task {
+    min-height: 75px;
+    padding: 10px;
+    gap: 6px;
+  }
+
+  .task-title {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .task-subtasks {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .task {
+    min-height: 80px;
+    padding: 10px;
+  }
+
+  .task-title {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task {
+    min-height: 70px;
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .task-title {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .task-subtasks {
+    font-size: 10px;
+  }
+}

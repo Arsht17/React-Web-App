@@ -239,4 +239,110 @@ textarea.error {
   margin-top: 4px;
   border-color: red;
 }
-//#404552
+
+/*responsive*/
+@media (max-width: 1024px) {
+  .AddNewTask-content {
+    width: 440px;
+    padding: 18px;
+  }
+
+  .title-field input,
+  .description-field textarea,
+  .Chevron-btn,
+  .Items,
+  .Subtasks .subtask-item {
+    width: 100%;
+  }
+
+  .Subtasks .subtask-item button {
+    right: 20px;
+  }
+
+  .status {
+    left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .AddNewTask-content {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .title-field input,
+  .description-field textarea {
+    font-size: 13px;
+  }
+
+  .Subtasks .subtask-item input {
+    font-size: 13px;
+  }
+
+  .Chevron-btn {
+    font-size: 13px;
+    height: 38px;
+  }
+
+  .Items {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .status {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .AddNewTask-content {
+    width: 95%;
+    padding: 14px;
+  }
+
+  .AddNewTask-title {
+    font-size: 16px;
+  }
+
+  .title-field input,
+  .description-field textarea,
+  .Chevron-btn {
+    font-size: 12px;
+    height: 36px;
+    padding: 6px;
+  }
+
+  .Items {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .Item {
+    font-size: 12px;
+  }
+
+  .Subtasks .subtask-item {
+    padding: 4px;
+  }
+
+  .Subtasks .subtask-item input {
+    font-size: 12px;
+  }
+
+  .Subtasks .subtask-item button {
+    right: 16px;
+    font-size: 16px;
+  }
+
+  .createTask-btn {
+    bottom: 24px;
+  }
+
+  .status {
+    padding-bottom: 16px;
+  }
+
+  .error-message {
+    font-size: 11px;
+  }
+}

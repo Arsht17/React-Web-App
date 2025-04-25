@@ -1,5 +1,6 @@
 .Sidebar {
   display: flex;
+  flex-shrink: 0; /* sidebar non-shrinkable*/
   flex-direction: column;
   color: #828fa3;
   width: 0;

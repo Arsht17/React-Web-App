@@ -201,3 +201,108 @@
   position: relative;
   padding-left: 32px;
 }
+
+/*  responsive  */
+@media (max-width: 1024px) {
+  .TaskModal-wrapper {
+    width: 420px;
+  }
+
+  .subTask-item,
+  .Chevron-btn,
+  .Items {
+    width: 100%;
+  }
+
+  .TaskModal-title,
+  .TaskModal-description,
+  .TaskModal-Subtasks,
+  .TaskModal-status,
+  .Subtasks-list,
+  .drop-Down {
+    padding-left: 24px;
+  }
+
+  .TaskModal-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .TaskModal-wrapper {
+    width: 90%;
+    padding-bottom: 24px;
+  }
+
+  .subTask-item {
+    height: auto;
+    padding: 8px;
+  }
+
+  .subtask-text {
+    font-size: 11px;
+  }
+
+  .TaskModal-description {
+    font-size: 12px;
+  }
+
+  .TaskModal-status {
+    font-size: 13px;
+  }
+
+  .Chevron-btn {
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .Items {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .TaskModal-wrapper {
+    width: 95%;
+    padding-bottom: 20px;
+  }
+
+  .TaskModal-title {
+    font-size: 16px;
+    padding-left: 16px;
+  }
+
+  .TaskModal-description,
+  .TaskModal-Subtasks,
+  .TaskModal-status {
+    padding-left: 16px;
+  }
+
+  .Subtasks-list,
+  .drop-Down {
+    padding-left: 16px;
+  }
+
+  .subTask-item {
+    width: 100%;
+    padding-left: 8px;
+    gap: 4px;
+  }
+
+  .subtask-text {
+    font-size: 10px;
+  }
+
+  .Chevron-btn {
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .Items {
+    width: 100%;
+  }
+
+  .Item {
+    font-size: 12px;
+  }
+}

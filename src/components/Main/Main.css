@@ -1,10 +1,11 @@
 .Main {
   background-color: var(--main-bg);
   flex-grow: 1;
+  overflow-x: auto; /* Allow horizontal scrolling in main area only */
+  overflow-y: auto;
   color: var(--main-color);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   max-width: 100%;
   position: relative;
 }
@@ -32,7 +33,6 @@
   white-space: nowrap;
   /* max-width: calc(100vw - 300px); */
   width: 100%;
-  min-width: 100%;
   position: relative;
 }
 
@@ -50,8 +50,10 @@
 
 .New-Column {
   flex-shrink: 0;
-  position: relative;
-  top: 95px;
+  /* position: relative;
+  top: 95px; */
+  margin-top: 95px;
+  margin-bottom: 32px;
   width: 280px;
   height: calc(100vh - 200px); /* Dynamic height based on viewport */
   min-height: 500px; /* Minimum height */
