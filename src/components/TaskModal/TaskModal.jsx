@@ -17,14 +17,26 @@ function TaskModal({ task, onClose, opentaskToEdit, openDeleteTaskModal }) {
   const boardColumns = selectedBoard?.columns || [];
 
   //  existing localTask logic
-  const [localTask, setLocalTask] = useState(task);
+  const [localTask, setLocalTask] = useState(() => normalize(task));
 
-  // isCompleted false default for all subtasks
+  // re-normalize & reset localTask:
   useEffect(() => {
-    if (!localTask) {
-      setLocalTask(task);
-    }
-  }, [task]);
+    setLocalTask(normalize(task));
+  }, [task.id]);
+
+  // helper to give every subtask an isCompleted boolean
+  function normalize(task) {
+    return {
+      ...task,
+      subtasks: (task.subtasks || []).map((sub) => ({
+        ...sub,
+        // if sub.isCompleted is already true/false keep it,
+        // otherwise default to false:
+        isCompleted:
+          typeof sub.isCompleted === "boolean" ? sub.isCompleted : false,
+      })),
+    };
+  }
 
   // form holds the current columnId
   const [form, setForm] = useState({ columnId: task.columnId });
