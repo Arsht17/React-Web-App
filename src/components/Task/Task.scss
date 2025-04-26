@@ -1,5 +1,6 @@
 .task {
-  width: 280px;
+  width: 100%; /* fill the column’s inner width */
+  box-sizing: border-box;
   min-height: 88px;
   height: auto;
   background-color: var(--editborad-bg);

@@ -1,13 +1,15 @@
 .column {
   flex: 0 0 300px;
   width: 300px;
-  height: 1114px;
+  height: calc(100vh - 138px);
+  display: flex;
+  flex-direction: column;
   padding: 16px;
   margin-left: 8px;
-
-  h4 {
-    letter-spacing: 2.4px;
-  }
+  box-sizing: border-box;
+}
+h4 {
+  letter-spacing: 2.4px;
 }
 
 .column-header {
@@ -26,10 +28,19 @@
 }
 
 .tasks-container {
+  flex: 1 1 auto;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding-bottom: 16px;
+
+  /* hide scrollbar on all browsers: */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tasks-container::-webkit-scrollbar {
+  display: none;
 }
 
 /*responsive*/

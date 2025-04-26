@@ -29,7 +29,7 @@
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-bottom: 16px;
+  padding-bottom: 30px;
   white-space: nowrap;
   /* max-width: calc(100vw - 300px); */
   width: 100%;
@@ -80,6 +80,26 @@
 }
 
 /* responsive*/
+@media (max-width: 1024px) {
+  .Main {
+    padding: 0 12px;
+  }
+
+  .columns-container {
+    gap: 16px;
+    padding: 0 12px 30px 12px;
+  }
+
+  .New-Column {
+    width: 240px;
+    height: 900px;
+    font-size: 20px;
+    padding: 14px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .Main {
     padding: 0 8px;
@@ -101,7 +121,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 8px;
-    padding: 0 8px 16px 8px;
+    padding: 0 8px 30px 8px;
   }
 
   .New-Column {
