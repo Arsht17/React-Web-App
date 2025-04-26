@@ -28,7 +28,7 @@
 .columns-container {
   display: flex;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-bottom: 30px;
   white-space: nowrap;
   /* max-width: calc(100vw - 300px); */
@@ -37,6 +37,7 @@
 }
 
 .columns-container::-webkit-scrollbar {
+  width: 0px; /* hides vertical*/
   height: 12px; /* Makes scrollbar thicker */
 }
 .columns-container::-webkit-scrollbar-thumb {
