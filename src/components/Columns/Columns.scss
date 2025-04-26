@@ -26,7 +26,7 @@ h4 {
     rgba(250, 250, 254, 0) 0%,
     var(--main-bg) 100%
   );
-  z-index: 10; /* sit above your tasks */
+  z-index: 1; /* sit above your tasks */
 }
 
 .column-header {
