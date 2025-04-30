@@ -17,6 +17,9 @@
   &:hover {
     border-color: #969696;
   }
+  &:hover .task-title {
+    color: #635fc7;
+  }
 }
 
 .task-title {
