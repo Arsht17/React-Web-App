@@ -13,6 +13,7 @@ h4 {
   letter-spacing: 2.4px;
 }
 
+/* bottom fade */
 .column::after {
   content: "";
   position: absolute;
@@ -45,12 +46,29 @@ h4 {
 }
 
 .tasks-container {
+  position: relative;
   flex: 1 1 auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding-bottom: 16px;
+
+  /* fade out the first 32px, then stay solid */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    black 12px,
+    black 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0px,
+    black 12px,
+    black 100%
+  );
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
 
   /* hide scrollbar on all browsers: */
   scrollbar-width: none;

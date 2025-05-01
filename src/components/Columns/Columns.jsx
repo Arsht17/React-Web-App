@@ -25,6 +25,7 @@ function Columns({ column, index, boardId }) {
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskToEdit, setTaskToEdit] = useState(null);
   const [openDeleteTaskModal, setopenDeleteTaskModal] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     if (!colorMap.has(column.id)) {
@@ -60,6 +61,7 @@ function Columns({ column, index, boardId }) {
 
   return (
     <div className="column">
+      <div className="fade-top" />
       <div className="column-header">
         <span className="column-circle" style={{ backgroundColor: color }} />
         <h4>
