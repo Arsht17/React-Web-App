@@ -1,7 +1,11 @@
 import "./Columns.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { selectTasksByColumn, deleteTask } from "../../store/slices/tasksSlice";
+import {
+  selectTasksByColumn,
+  deleteTask,
+  addTask,
+} from "../../store/slices/tasksSlice";
 import { AddNewTask } from "../AddNewTask/AddNewTask";
 import { DeleteTaskModal } from "../DeleteTaskModal/DeleteTaskModal";
 import TaskModal from "../TaskModal/TaskModal";
@@ -33,6 +37,7 @@ function Columns({ column, index, boardId }) {
   const tasks = useSelector((state) =>
     selectTasksByColumn(state, boardId, column.id)
   );
+  const allTasks = useSelector((state) => state.tasks.tasks);
 
   async function deleteTaskHandler(task) {
     if (!task?.columnId) {
@@ -61,9 +66,46 @@ function Columns({ column, index, boardId }) {
           {column.name} ({tasks.length})
         </h4>
       </div>
-      <div className="tasks-container">
+      <div
+        className="tasks-container"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={async (e) => {
+          const data = JSON.parse(e.dataTransfer.getData("application/json"));
+          if (!data || !data.taskId || data.fromColumnId === column.id) return;
+
+          try {
+            // get task to move
+            const taskToMove = allTasks?.[boardId]?.[data.fromColumnId]?.find(
+              (t) => t.id === data.taskId
+            );
+            if (!taskToMove) return console.error("Task not found");
+
+            //  Delete from old column
+            await Api.deleteTask(boardId, data.fromColumnId, data.taskId);
+            dispatch(
+              deleteTask({
+                boardId,
+                columnId: data.fromColumnId,
+                taskId: data.taskId,
+              })
+            );
+
+            //  Add to new column
+            const NewTask = { ...taskToMove, columnId: column.id };
+            const created = await Api.createTask(boardId, column.id, NewTask);
+            dispatch(addTask({ boardId, columnId: column.id, task: created }));
+          } catch (err) {
+            console.error("Failed to move task", err);
+          }
+        }}
+      >
         {tasks.map((task) => (
-          <Task key={task.id} task={task} onClick={setSelectedTask} />
+          <Task
+            key={task.id}
+            task={task}
+            columnId={column.id}
+            onClick={setSelectedTask}
+          />
         ))}
       </div>
       {selectedTask && (
