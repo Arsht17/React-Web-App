@@ -92,7 +92,11 @@ function Columns({ column, index, boardId }) {
 
             //  Add to new column
             const NewTask = { ...taskToMove, columnId: column.id };
-            const created = await Api.createTask(boardId, column.id, NewTask);
+            const created = await Api.createTask(boardId, column.id, {
+              ...NewTask,
+              id: taskToMove.id,
+            });
+
             dispatch(addTask({ boardId, columnId: column.id, task: created }));
           } catch (err) {
             console.error("Failed to move task", err);
