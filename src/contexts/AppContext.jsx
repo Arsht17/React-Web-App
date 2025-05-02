@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { boardsSlice } from "../store";
-import { tasksSlice } from "../store";
 
 export const AppContext = createContext(null);
 
@@ -66,7 +65,6 @@ export function AppContextProvider({ children }) {
     setSelectedBoardId,
     createBoard,
     createColumn,
-    // createTask,
   };
 
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
