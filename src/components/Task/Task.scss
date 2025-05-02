@@ -13,6 +13,7 @@
   flex-direction: column;
   transition: border-color 0.2s ease;
   gap: 8px;
+  flex-shrink: 0;
 
   &:hover {
     border-color: #969696;
