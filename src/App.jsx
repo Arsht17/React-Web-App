@@ -26,7 +26,6 @@ function App() {
   const appContext = useAppContext();
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [boardToEdit, setBoardToEdit] = useState(null);
-  console.log("boardToEdit", boardToEdit);
   const dispatch = useDispatch();
   const [isAddNewTaskOpen, setIsAddNewTaskOpen] = useState(false);
   const [isAddNewColumnOpen, setIsAddNewColumnOpen] = useState(false);
