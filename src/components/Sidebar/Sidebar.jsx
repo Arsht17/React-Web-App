@@ -7,8 +7,7 @@ import { Link } from "wouter";
 import { useParams } from "wouter";
 import Button from "../Button/Button";
 
-export function Sidebar(props) {
-  const { setIsDarkMode } = props;
+export function Sidebar({ isDarkMode, setIsDarkMode, props }) {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const [hoveredBoard, setHoveredBoard] = useState(null);
   const params = useParams();
@@ -22,14 +21,12 @@ export function Sidebar(props) {
   const dispatch = useDispatch();
   const appContext = useAppContext();
   const { createBoard } = appContext;
-  //const selectedBoardId = useSelector((state) => state.boards.selectedBoardId);
 
   //derived state
   const totalBoards = boards.length;
   return (
     <>
       <div className={`Sidebar ${sidebarIsOpen ? "open" : ""}`}>
-        {/* <input onChange={(e) => setText(e.target.value)} type="text" /> */}
         <div className="Boards-list">
           <h3 style={{ letterSpacing: "2.4px" }}>ALL BOARDS({totalBoards})</h3>
           {boards.map((board) => {
@@ -39,7 +36,6 @@ export function Sidebar(props) {
               <div
                 key={board.id}
                 onClick={() => {
-                  //   //setSelectedBoardId(board.id);
                   dispatch(boardsSlice.actions.selectedBoard(board.id));
                 }}
                 onMouseEnter={() => setHoveredBoard(board.id)}
@@ -81,7 +77,6 @@ export function Sidebar(props) {
           <button
             className="create-new-board"
             onClick={() => {
-              //createBoard({ name: text });
               props.onCreateBoard?.();
             }}
           >
@@ -110,10 +105,9 @@ export function Sidebar(props) {
           </svg>
           <label className="switch">
             <input
-              onChange={(event) => {
-                setIsDarkMode(event.target.checked);
-              }}
               type="checkbox"
+              checked={isDarkMode}
+              onChange={(e) => setIsDarkMode(e.target.checked)}
             />
             <span className="slider round"></span>
           </label>
