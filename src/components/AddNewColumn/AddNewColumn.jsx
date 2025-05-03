@@ -87,7 +87,6 @@ export function AddNewColumn({ onClose, boardId, selectedBoard }) {
         if (column.name.trim() !== "") {
           // Ensure unique ID for each column before sending to API
           const newColumn = await Api.createColumn(boardId, {
-            id: crypto.randomUUID(),
             name: column.name,
             tasks: [],
           });

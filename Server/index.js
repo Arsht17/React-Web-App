@@ -102,7 +102,7 @@ app.get("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
 app.post("/api/boards/:boardId/columns/:columnId/tasks", (req, res) => {
   const { boardId, columnId } = req.params; // Extract columnId from request
 
-  const { task } = req.body; // Get task data
+  const task = req.body; // Get task data
   // Find the board
   const board = boards.find((b) => b.id === boardId);
   if (!board) return res.status(404).json({ message: "Board not found" });

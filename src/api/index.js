@@ -75,7 +75,7 @@ export const Api = {
   createTask(boardId, columnId, task) {
     return request({
       method: "POST",
-      body: { task },
+      body: task, // send the raw object
       param: `${boardId}/columns/${columnId}/tasks`,
     });
   },
