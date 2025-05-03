@@ -7,11 +7,12 @@ import { Link } from "wouter";
 import { useParams } from "wouter";
 import Button from "../Button/Button";
 
-export function Sidebar({ isDarkMode, setIsDarkMode, props }) {
+export function Sidebar(props) {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
   const [hoveredBoard, setHoveredBoard] = useState(null);
   const params = useParams();
   const selectedBoardName = params?.boardName;
+  const { isDarkMode, setIsDarkMode } = props;
 
   function CloseSidebar() {
     setSidebarIsOpen(false);
