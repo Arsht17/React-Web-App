@@ -1,7 +1,8 @@
-import { useAppContext } from "../../contexts/AppContext";
+// import { useAppContext } from "../../contexts/useAppContext"; // Removed unused import
+import PropTypes from "prop-types";
 import { boardsSlice } from "../../store";
 import { columnsSlice } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./BoardFormModal.scss";
 import { useState } from "react";
 import Button from "../Button/Button";
@@ -122,9 +123,12 @@ export function BoardFormModal({ close, boardToEdit }) {
   //const { selectedBoard } = appContext;
   //const selectedBoard = useSelector(boardsSlice.selectors.selectedBoard);
 
-  const boards = useSelector((state) => state.boards.boards);
-  const selectedBoardId = useSelector((state) => state.boards.selectedBoardId);
-  const selectedBoard = boards.find((board) => board.id === selectedBoardId);
+  // Removed unused boards and selectedBoardId
+  // Removed unused selectedBoard
+  BoardFormModal.propTypes = {
+    close: PropTypes.func.isRequired,
+    boardToEdit: PropTypes.object,
+  };
 
   console.log("form", form);
   return (

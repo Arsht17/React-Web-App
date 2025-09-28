@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
-import { useAppContext } from "../../contexts/AppContext";
+// Removed unused useAppContext import
+import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import "./Main.css";
 import { boardsSlice } from "../../store";
@@ -7,7 +8,7 @@ import { useParams } from "wouter";
 import Columns from "../Columns/Columns";
 
 export function Main({ openAddNewColumn }) {
-  const appContext = useAppContext();
+  // Removed unused appContext
   //const { selectedBoard } = appContext;
 
   const params = useParams();
@@ -16,7 +17,10 @@ export function Main({ openAddNewColumn }) {
   const selectedBoard = useSelector((state) =>
     boardsSlice.selectors.selectedBoard(state, selectedBoardName)
   );
-  const boardName = selectedBoard ? selectedBoard.name : "select board";
+  // Removed unused boardName
+  Main.propTypes = {
+    openAddNewColumn: PropTypes.func.isRequired,
+  };
   const columns = selectedBoard?.columns || [];
   const isAddColumnDisabled = !selectedBoard;
   const isEmptyState = !columns.length;

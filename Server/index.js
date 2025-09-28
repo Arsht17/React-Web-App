@@ -13,17 +13,17 @@ app.use(express.json({}));
 const boards = [
   {
     id: crypto.randomUUID(),
-    name: "developers",
+    name: "Rollout",
     columns: [],
   },
   {
     id: crypto.randomUUID(),
-    name: "products",
+    name: "Products",
     columns: [],
   },
   {
     id: crypto.randomUUID(),
-    name: "designers",
+    name: "Development",
     columns: [],
   },
 ];

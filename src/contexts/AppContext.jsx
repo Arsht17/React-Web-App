@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { boardsSlice } from "../store";
 
@@ -70,7 +71,6 @@ export function AppContextProvider({ children }) {
   return <AppContext.Provider value={data}>{children}</AppContext.Provider>;
 }
 
-//custom hook
-export const useAppContext = () => {
-  return useContext(AppContext);
+AppContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useAppContext } from "../../contexts/AppContext";
+// Removed unused useAppContext import
+import PropTypes from "prop-types";
 import "./Sidebar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { boardsSlice } from "../../store";
@@ -20,8 +21,13 @@ export function Sidebar(props) {
 
   const boards = useSelector((state) => state.boards?.boards ?? []);
   const dispatch = useDispatch();
-  const appContext = useAppContext();
-  const { createBoard } = appContext;
+  // Removed unused appContext
+  // Removed unused createBoard
+  Sidebar.propTypes = {
+    isDarkMode: PropTypes.bool.isRequired,
+    setIsDarkMode: PropTypes.func.isRequired,
+    onCreateBoard: PropTypes.func,
+  };
 
   //derived state
   const totalBoards = boards.length;

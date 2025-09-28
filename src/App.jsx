@@ -4,7 +4,7 @@ import { Header } from "./components/Header/Header";
 import { Main } from "./components/Main/Main";
 import { WaitingView } from "./components/WaitingView/WaitingView";
 import { BoardFormModal } from "./components/BoardFormModal/BoardFormModal";
-import { useAppContext } from "./contexts/AppContext";
+import { useAppContext } from "./contexts/useAppContext";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { boardsSlice, themeSlice } from "./store";
@@ -23,7 +23,6 @@ function App() {
     return state?.theme?.isDarkMode;
   });
   const [isLoading, setIsLoading] = useState(false);
-  const appContext = useAppContext();
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [boardToEdit, setBoardToEdit] = useState(null);
   const dispatch = useDispatch();
@@ -74,7 +73,7 @@ function App() {
       dispatch(boardsSlice.actions.setBoards(data));
       setIsLoading(false);
     });
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) {
     return <WaitingView />;

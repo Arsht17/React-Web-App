@@ -1,5 +1,7 @@
 import "./Task.scss";
 
+import PropTypes from "prop-types";
+
 function Task({ task, columnId, onClick }) {
   const completedSubtasks =
     task.subtasks?.filter((sub) => sub.isCompleted).length || 0;
@@ -24,5 +26,19 @@ function Task({ task, columnId, onClick }) {
     </div>
   );
 }
+
+Task.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        isCompleted: PropTypes.bool,
+      })
+    ),
+  }).isRequired,
+  columnId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onClick: PropTypes.func,
+};
 
 export default Task;
