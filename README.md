@@ -5,4 +5,4 @@ In order to Run Live Demo in StackBlitz follow this steps:
 4. After installation type "npm run", click enter.
 5. Then type "node index.js", click enter.
 6. Finally you can reload the preview or control + left mouse click on the Host link in the left cosole.
-A preview window will load the app, resize it for better view.
+7. A preview window will load the app, resize it for better view.
