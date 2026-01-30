@@ -1,5 +1,5 @@
 In order to Run Live Demo in StackBlitz follow this steps:
-1. Split the terminal by clicking on the [|] ICON in the terminal below.
+1. Split the terminal by clicking on the [|] icon in the terminal below.
 2. In the new terminal type "cd Server", click enter.
 3. Then type "npm install", click enter.
 4. After installation type "npm run", click enter.
